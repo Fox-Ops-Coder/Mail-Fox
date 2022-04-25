@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MFData.Entities
 {
     [Table("Blanks")]
-    internal sealed class Blank
+    public sealed class Blank
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(TypeName = SQLTypes.INTEGER)]

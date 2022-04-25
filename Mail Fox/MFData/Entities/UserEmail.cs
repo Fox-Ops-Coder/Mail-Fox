@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MFData.Entities
 {
     [Table("UserEmails")]
-    internal sealed class UserEmail
+    public sealed class UserEmail
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(TypeName = SQLTypes.INTEGER)]
