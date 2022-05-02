@@ -16,4 +16,9 @@
     <ApplicationDefinition Include="App\MailFoxApp.xaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\MFData\MFData.csproj" />
+  </ItemGroup>
+
 </Project>

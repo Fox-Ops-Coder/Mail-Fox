@@ -5,21 +5,34 @@ namespace Common.AppService.Manager
 {
     internal sealed class WindowManager : IWindowManager
     {
-        public void CloseWindow(IWindow window)
+        private static Window? FoundWindow(IWindow window)
         {
-            bool closed;
+            Window? founded;
             int index;
 
             WindowCollection windowCollection = Application.Current.Windows;
 
-            for (index = 0, closed = false; index < windowCollection.Count && !closed; ++index)
-            {
+            for (index = 0, founded = null; index < windowCollection.Count; ++index)
                 if (new Guid(windowCollection[index].Uid) == window.Guid)
-                {
-                    windowCollection[index].Dispatcher.Invoke(() => windowCollection[index].Close());
-                    closed = true;
-                }
-            }
+                    founded = windowCollection[index];
+
+            return founded;
+        }
+
+        public void CloseWindow(IWindow window)
+        {
+            Window? target = FoundWindow(window);
+
+            if (target != null)
+                target.Dispatcher.BeginInvoke(() => target.Close());
+        }
+
+        public void ShowMessage(IWindow window, string message)
+        {
+            Window? target = FoundWindow(window);
+
+            if (target != null)
+                target.Dispatcher.BeginInvoke(() => MessageBox.Show(message));
         }
     }
 }
