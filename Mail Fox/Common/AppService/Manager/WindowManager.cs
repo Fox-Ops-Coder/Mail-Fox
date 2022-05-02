@@ -20,12 +20,18 @@ namespace Common.AppService.Manager
             return founded;
         }
 
-        public void CloseWindow(IWindow window)
+        public void CloseWindow(IWindow window, bool? dialogResult = null)
         {
             Window? target = FoundWindow(window);
 
             if (target != null)
-                target.Dispatcher.Invoke(() => target.Close());
+            {
+                target.Dispatcher.Invoke(() =>
+                {
+                    target.DialogResult = dialogResult;
+                    target.Close();
+                });
+            }
         }
 
         public void ShowMessage(IWindow window, string message)
