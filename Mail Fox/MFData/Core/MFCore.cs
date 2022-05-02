@@ -13,6 +13,9 @@ namespace MFData.Core
         public MFCore(MFDatabase database) =>
             this.database = database;
 
+        public async Task<bool> EnsureCreatedAsync() =>
+            await database.Database.EnsureCreatedAsync();
+
         public async Task AddBlankAsync(Blank newBlank)
         {
             await database.Blanks.AddAsync(newBlank);
