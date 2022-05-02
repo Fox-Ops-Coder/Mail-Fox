@@ -6,7 +6,7 @@ namespace MFData.Core
 {
     public interface IMFCore
     {
-        Task<bool> EnsureCreatedAsync();
+        bool EnsureCreated();
 
         Task<IEnumerable<UserEmail>> GetUserEmailsAsync();
         Task<IEnumerable<Contact>> GetContactsAsync();

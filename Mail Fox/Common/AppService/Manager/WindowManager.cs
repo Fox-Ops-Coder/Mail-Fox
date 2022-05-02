@@ -13,7 +13,8 @@ namespace Common.AppService.Manager
             WindowCollection windowCollection = Application.Current.Windows;
 
             for (index = 0, founded = null; index < windowCollection.Count; ++index)
-                if (new Guid(windowCollection[index].Uid) == window.Guid)
+                if (!string.IsNullOrEmpty(windowCollection[index].Uid) &&
+                    new Guid(windowCollection[index].Uid) == window.Guid)
                     founded = windowCollection[index];
 
             return founded;
@@ -24,7 +25,7 @@ namespace Common.AppService.Manager
             Window? target = FoundWindow(window);
 
             if (target != null)
-                target.Dispatcher.BeginInvoke(() => target.Close());
+                target.Dispatcher.Invoke(() => target.Close());
         }
 
         public void ShowMessage(IWindow window, string message)
@@ -32,7 +33,11 @@ namespace Common.AppService.Manager
             Window? target = FoundWindow(window);
 
             if (target != null)
-                target.Dispatcher.BeginInvoke(() => MessageBox.Show(message));
+                target.Dispatcher.Invoke(() => MessageBox.Show(message));
         }
+
+        public bool? ShowDialog(Window window) => window.ShowDialog();
+
+        public void ShowWindow(Window window) => window.Show();
     }
 }
