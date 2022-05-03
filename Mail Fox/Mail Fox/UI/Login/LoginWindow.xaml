@@ -8,16 +8,16 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <local:LoginContext/>
+        <local:LoginContext />
     </Window.DataContext>
     <Grid x:Name="loginGrid">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="loginTitle" TextWrapping="Wrap" Text="Выбрерите почтовый сервис, в который хотите войти" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
-        <ComboBox x:Name="servicesComboBox" Grid.Row="1" ItemsSource="{Binding Services}" SelectedIndex="0" SelectedItem="{Binding SelectedService}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="200,0,200,0"/>
-        <Button x:Name="loginButton" Content="Войти" Grid.Row="2" Command="{Binding LoginCommand, Mode=OneWay}" Margin="300,50,300,50"/>
+        <TextBlock x:Name="loginTitle" TextWrapping="Wrap" Text="Выбрерите почтовый сервис, в который хотите войти" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
+        <ComboBox x:Name="servicesComboBox" Grid.Row="1" ItemsSource="{Binding Services}" SelectedIndex="0" SelectedItem="{Binding SelectedService}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="200,0,200,0" />
+        <Button x:Name="loginButton" Content="Войти" Grid.Row="2" Command="{Binding LoginCommand, Mode=OneWay}" Margin="300,50,300,50" />
     </Grid>
 </Window>

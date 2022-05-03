@@ -6,7 +6,7 @@ namespace Common.UI
     /// <summary>
     /// Логика взаимодействия для DialogWindow.xaml
     /// </summary>
-    public partial class DialogWindow : Window
+    public sealed partial class DialogWindow : Window
     {
         public DialogWindow(string question, IWindowManager windowManager)
         {

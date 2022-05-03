@@ -8,28 +8,28 @@
         mc:Ignorable="d"
         Title="AddressBookWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <local:AddressBookContext/>
+        <local:AddressBookContext />
     </Window.DataContext>
     <Grid x:Name="addressBookGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="195*"/>
+            <RowDefinition Height="22*" />
+            <RowDefinition Height="195*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Button Content="Добавить контакт" Margin="10,10,600,10" Command="{Binding AddContactCommand, Mode=OneWay}"/>
+        <Button Content="Добавить контакт" Margin="10,10,600,10" Command="{Binding AddContactCommand, Mode=OneWay}" />
         <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Contacts}" SelectedIndex="0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Padding="25,10,25,10" Text="{Binding Contact.ContactEmail}"/>
-                        <TextBlock Grid.Column="1" Padding="25,10,25,10" Text="{Binding Contact.ContactName}"/>
+                        <TextBlock Padding="25,10,25,10" Text="{Binding Contact.ContactEmail}" />
+                        <TextBlock Grid.Column="1" Padding="25,10,25,10" Text="{Binding Contact.ContactName}" />
                         <Button Content="Удалить" Grid.Column="2" Padding="25,10,25,10" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>

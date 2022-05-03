@@ -8,16 +8,15 @@
         mc:Ignorable="d"
         Title="ResponceWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <local:ResponceContext/>
+        <local:ResponceContext />
     </Window.DataContext>
     <Grid x:Name="responceGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="26*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="26*" />
+            <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="responceText" TextWrapping="Wrap" Text="{Binding ResponceText}"/>
+        <TextBlock x:Name="responceText" TextWrapping="Wrap" Text="{Binding ResponceText}" />
 
-        <Button x:Name="saveResponceButton" Grid.Row="1" Content="Сохранить" Margin="300,10,305,10" Command="{Binding SaveCommand, Mode=OneWay}"/>
-
+        <Button x:Name="saveResponceButton" Grid.Row="1" Content="Сохранить" Margin="300,10,305,10" Command="{Binding SaveCommand, Mode=OneWay}" />
     </Grid>
 </Window>

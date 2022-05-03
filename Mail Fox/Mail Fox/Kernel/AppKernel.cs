@@ -10,6 +10,7 @@ namespace MailFox.Kernel
     internal static class AppKernel
     {
         private static IKernel? kernel;
+
         public static IKernel GetKernel()
         {
             if (kernel == null)

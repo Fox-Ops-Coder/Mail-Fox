@@ -13,9 +13,11 @@ namespace MFData.Context
 
         public DbSet<Blank> Blanks { get; private set; }
 
-        #pragma warning disable CS8618
+#pragma warning disable CS8618
+
         public MFDatabase(string dataSource) => this.dataSource = dataSource;
-        #pragma warning restore CS8618
+
+#pragma warning restore CS8618
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder.UseSqlite($"Data Source={dataSource}");

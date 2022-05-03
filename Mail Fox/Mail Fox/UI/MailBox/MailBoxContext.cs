@@ -1,6 +1,5 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
-using MailFox.Kernel;
 using MailFox.UI.AddressBook;
 using MailFox.UI.Context;
 using MailFox.UI.Login;

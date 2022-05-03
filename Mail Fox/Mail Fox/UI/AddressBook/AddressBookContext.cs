@@ -70,7 +70,6 @@ namespace MailFox.UI.AddressBook
                     contacts.Add(new(newContact, removeContactCommand));
             });
 
-
             GetContacts(mailFoxDatabase, contacts, removeContactCommand).Wait();
         }
     }

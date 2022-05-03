@@ -16,9 +16,10 @@ namespace MailFox.UI.Login
         public ObservableCollection<ServiceAdapter> Services => services;
 
         private ServiceAdapter selectedService;
+
         public ServiceAdapter SelectedService
-        { 
-            get => selectedService; 
+        {
+            get => selectedService;
             set => selectedService = value;
         }
 

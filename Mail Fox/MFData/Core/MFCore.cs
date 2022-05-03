@@ -71,14 +71,12 @@ namespace MFData.Core
         {
             database.Contacts.Update(contact);
             await database.SaveChangesAsync();
-
         }
 
         public async Task UpdateUserEmailAsync(UserEmail userEmail)
         {
             database.UserEmails.Update(userEmail);
             await database.SaveChangesAsync();
-
         }
     }
 }

@@ -14,7 +14,8 @@ namespace MailFox.UI.Responce
         public ICommand SaveCommand => saveCommand;
 
         private string responceText;
-        public string ResponceText 
+
+        public string ResponceText
         {
             get => responceText;
             set => responceText = value;

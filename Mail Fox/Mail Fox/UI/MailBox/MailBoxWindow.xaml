@@ -1,34 +1,34 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MailFox.UI.MailBox" x:Name="mailBoxWindow" x:Class="MailFox.UI.MailBox.MailBoxWindow"
         x:ClassModifier="internal"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DesignHeight="450" d:DesignWidth="800"
         Title="MailBoxWindow" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <local:MailBoxContext/>
+        <local:MailBoxContext />
     </Window.DataContext>
     <Grid x:Name="mailBoxGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="195*"/>
+            <RowDefinition Height="22*" />
+            <RowDefinition Height="195*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="21*"/>
-            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="21*" />
+            <ColumnDefinition Width="59*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button x:Name="addBoxButton" Content="Добавить почтовый ящик" Command="{Binding LoginCommand, Mode=OneWay}" Margin="25,10,25,10"/>
-            <Button Grid.Column="1" Margin="25,10,25,10" Content="Адресная книга" Command="{Binding OpenAddressBookCommand, Mode=OneWay}"/>
+            <Button x:Name="addBoxButton" Content="Добавить почтовый ящик" Command="{Binding LoginCommand, Mode=OneWay}" Margin="25,10,25,10" />
+            <Button Grid.Column="1" Margin="25,10,25,10" Content="Адресная книга" Command="{Binding OpenAddressBookCommand, Mode=OneWay}" />
         </Grid>
-        <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Email/EmailPage.xaml"/>
-        <Frame Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Message/MessagePage.xaml"/>
+        <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Email/EmailPage.xaml" />
+        <Frame Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Message/MessagePage.xaml" />
     </Grid>
 </Window>

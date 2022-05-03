@@ -7,16 +7,15 @@
         Title="DialogWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
     <Grid x:Name="dialogGrid">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock TextWrapping="Wrap" Text="{Binding Question}" Grid.ColumnSpan="2"/>
-        <Button Content="Подтвердить" Command="{Binding AcceptCommand, Mode=OneWay}" Grid.Row="1"/>
-        <Button Grid.Column="1" Command="{Binding RejectCommand, Mode=OneWay}" Content="Отмена" Grid.Row="1"/>
-
+        <TextBlock TextWrapping="Wrap" Text="{Binding Question}" Grid.ColumnSpan="2" />
+        <Button Content="Подтвердить" Command="{Binding AcceptCommand, Mode=OneWay}" Grid.Row="1" />
+        <Button Grid.Column="1" Command="{Binding RejectCommand, Mode=OneWay}" Content="Отмена" Grid.Row="1" />
     </Grid>
 </Window>
