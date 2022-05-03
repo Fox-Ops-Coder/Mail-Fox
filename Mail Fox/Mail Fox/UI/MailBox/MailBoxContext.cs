@@ -1,6 +1,7 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
 using MailFox.Kernel;
+using MailFox.UI.AddressBook;
 using MailFox.UI.Context;
 using MailFox.UI.Login;
 using Ninject;
@@ -12,6 +13,9 @@ namespace MailFox.UI.MailBox
     {
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
+
+        private readonly ICommand openAddressBookCommand;
+        public ICommand OpenAddressBookCommand => openAddressBookCommand;
 
         public MailBoxContext()
         {
@@ -27,6 +31,9 @@ namespace MailFox.UI.MailBox
                 else
                     windowManager.ShowMessage(this, "Почтовый ящик не добавлен");
             });
+
+            openAddressBookCommand = new Command(obj =>
+            windowManager.ShowWindow(new AddressBookWindow()));
         }
     }
 }

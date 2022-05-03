@@ -20,7 +20,14 @@
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="59*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="addBoxButton" Content="Добавить почтовый ящик" Command="{Binding LoginCommand, Mode=OneWay}" Margin="25,10,25,10"/>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addBoxButton" Content="Добавить почтовый ящик" Command="{Binding LoginCommand, Mode=OneWay}" Margin="25,10,25,10"/>
+            <Button Grid.Column="1" Margin="25,10,25,10" Content="Адресная книга" Command="{Binding OpenAddressBookCommand, Mode=OneWay}"/>
+        </Grid>
         <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Email/EmailPage.xaml"/>
         <Frame Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Message/MessagePage.xaml"/>
     </Grid>

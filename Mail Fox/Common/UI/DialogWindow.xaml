@@ -1,0 +1,22 @@
+﻿<Window x:Name="dialogWindow" x:Class="Common.UI.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DialogWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
+    <Grid x:Name="dialogGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock TextWrapping="Wrap" Text="{Binding Question}" Grid.ColumnSpan="2"/>
+        <Button Content="Подтвердить" Command="{Binding AcceptCommand, Mode=OneWay}" Grid.Row="1"/>
+        <Button Grid.Column="1" Command="{Binding RejectCommand, Mode=OneWay}" Content="Отмена" Grid.Row="1"/>
+
+    </Grid>
+</Window>

@@ -2,6 +2,12 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="UI\AddressBook\AddressBookWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\AddressBook\Add\AddContactWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Login\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +25,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="UI\AddressBook\AddressBookWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\AddressBook\Add\AddContactWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
