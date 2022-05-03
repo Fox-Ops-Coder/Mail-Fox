@@ -1,6 +1,5 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
-using MailFox.Kernel;
 using MailFox.UI.Context;
 using MailFox.UI.Login.Services;
 using Ninject;
@@ -35,7 +34,6 @@ namespace MailFox.UI.Login
 
             selectedService = services.First();
 
-            IKernel kernel = AppKernel.GetKernel();
             IWindowManager windowManager = kernel.Get<IWindowManager>();
 
             loginCommand = new Command(obj =>

@@ -3,6 +3,7 @@ using Common.UI;
 using Common.UICommand;
 using MailFox.Kernel;
 using MailFox.UI.AddressBook.Add;
+using MailFox.UI.AddressBook.Address;
 using MailFox.UI.Context;
 using MFData.Core;
 using MFData.Entities;
@@ -16,8 +17,8 @@ namespace MailFox.UI.AddressBook
 {
     internal sealed class AddressBookContext : ContextBase
     {
-        private readonly ObservableCollection<Contact> contacts;
-        public ObservableCollection<Contact> Contacts => contacts;
+        private readonly ObservableCollection<ContactAdapter> contacts;
+        public ObservableCollection<ContactAdapter> Contacts => contacts;
 
         private readonly ICommand addContactCommand;
         public ICommand AddContactCommand => addContactCommand;
@@ -26,12 +27,13 @@ namespace MailFox.UI.AddressBook
         public ICommand RemoveContactCommand => removeContactCommand;
 
         private static async Task GetContacts(IMFCore mailFoxDatabase,
-            ObservableCollection<Contact> contactsCollection)
+            ObservableCollection<ContactAdapter> contactsCollection,
+            ICommand removeCommand)
         {
             IEnumerable<Contact> contacts = await mailFoxDatabase.GetContactsAsync();
 
-            foreach(Contact contact in contacts)
-                contactsCollection.Add(contact);
+            foreach (Contact contact in contacts)
+                contactsCollection.Add(new(contact, removeCommand));
         }
 
         public AddressBookContext()
@@ -41,35 +43,35 @@ namespace MailFox.UI.AddressBook
             IWindowManager windowManager = kernel.Get<IWindowManager>();
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 
-            contacts = new ObservableCollection<Contact>();
-            GetContacts(mailFoxDatabase, contacts).Wait();
-
-            addContactCommand = new Command(async obj =>
-            {
-                bool? added = windowManager.ShowDialog(new AddContactWindow());
-
-                if (added != null && (bool)added)
-                {
-                    contacts.Clear();
-                    await GetContacts(mailFoxDatabase, contacts);
-                }
-            });
+            contacts = new ObservableCollection<ContactAdapter>();
 
             removeContactCommand = new Command(async obj =>
             {
-                if (obj is Contact contact)
+                if (obj is ContactAdapter contact && contact != null)
                 {
                     bool? accepted = windowManager.ShowDialog(new DialogWindow("Вы точно хотите удалить этот контакт?", windowManager));
 
                     if (accepted != null && (bool)accepted)
                     {
-                        await mailFoxDatabase.RemoveContactAsync(contact);
+                        await mailFoxDatabase.RemoveContactAsync(contact.Contact);
                         windowManager.ShowMessage(this, "Контакт удалён");
 
-                        await GetContacts(mailFoxDatabase, contacts);
+                        contacts.Remove(contact);
                     }
                 }
             });
+
+            addContactCommand = new Command(obj =>
+            {
+                object?[] results = windowManager.ShowDialogWithResult(new AddContactWindow());
+                bool? added = results[0] as bool?;
+
+                if (added != null && (bool)added && results[1] is Contact newContact)
+                    contacts.Add(new(newContact, removeContactCommand));
+            });
+
+
+            GetContacts(mailFoxDatabase, contacts, removeContactCommand).Wait();
         }
     }
 }

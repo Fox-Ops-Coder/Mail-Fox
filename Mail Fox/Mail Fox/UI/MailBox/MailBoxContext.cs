@@ -19,7 +19,6 @@ namespace MailFox.UI.MailBox
 
         public MailBoxContext()
         {
-            IKernel kernel = AppKernel.GetKernel();
             IWindowManager windowManager = kernel.Get<IWindowManager>();
 
             loginCommand = new Command(obj =>

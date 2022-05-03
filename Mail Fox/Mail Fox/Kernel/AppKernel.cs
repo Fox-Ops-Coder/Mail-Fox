@@ -16,9 +16,9 @@ namespace MailFox.Kernel
             {
                 string userFolden = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 string appFolden = userFolden + "\\Documents\\Mail Fox";
-                string dataSource = appFolden + "mailfox.dat";
+                string dataSource = appFolden + "\\mailfox.dat";
 
-                if (Directory.Exists(appFolden))
+                if (!Directory.Exists(appFolden))
                     Directory.CreateDirectory(appFolden);
 
                 kernel = new StandardKernel();

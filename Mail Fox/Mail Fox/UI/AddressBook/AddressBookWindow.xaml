@@ -26,9 +26,11 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding ContactEmail}"/>
-                        <Button Content="Удалить" Grid.Column="1" Command="{Binding RemoveContactCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" />
+                        <TextBlock Padding="25,10,25,10" Text="{Binding Contact.ContactEmail}"/>
+                        <TextBlock Grid.Column="1" Padding="25,10,25,10" Text="{Binding Contact.ContactName}"/>
+                        <Button Content="Удалить" Grid.Column="2" Padding="25,10,25,10" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

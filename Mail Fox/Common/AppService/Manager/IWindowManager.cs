@@ -10,6 +10,8 @@ namespace Common.AppService.Manager
 
         bool? ShowDialog(Window window);
 
+        object?[] ShowDialogWithResult(Window window);
+
         void ShowWindow(Window window);
     }
 }

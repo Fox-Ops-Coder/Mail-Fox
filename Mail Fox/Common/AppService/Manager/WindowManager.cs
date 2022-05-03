@@ -44,6 +44,17 @@ namespace Common.AppService.Manager
 
         public bool? ShowDialog(Window window) => window.ShowDialog();
 
+        public object?[] ShowDialogWithResult(Window window)
+        {
+            object?[] results = new object?[2];
+            results[0] = window.ShowDialog();
+
+            if (window.DataContext is IResult result)
+                results[1] = result.Result;
+
+            return results;
+        }
+
         public void ShowWindow(Window window) => window.Show();
     }
 }

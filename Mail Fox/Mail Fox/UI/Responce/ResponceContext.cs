@@ -1,6 +1,5 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
-using MailFox.Kernel;
 using MailFox.UI.Context;
 using MFData.Core;
 using MFData.Entities;
@@ -24,8 +23,6 @@ namespace MailFox.UI.Responce
         public ResponceContext()
         {
             responceText = string.Empty;
-
-            IKernel kernel = AppKernel.GetKernel();
 
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
             IWindowManager windowManager = kernel.Get<IWindowManager>();
