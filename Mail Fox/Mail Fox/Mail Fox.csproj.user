@@ -5,7 +5,13 @@
     <Compile Update="UI\Login\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\MailBox\Email\EmailPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\MailBox\MailBoxWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MailBox\Message\MessagePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Responce\ResponceWindow.xaml.cs">
@@ -16,7 +22,13 @@
     <Page Update="UI\Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UI\MailBox\Email\EmailPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\MailBox\MailBoxWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MailBox\Message\MessagePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Responce\ResponceWindow.xaml">
