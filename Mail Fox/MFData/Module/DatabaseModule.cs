@@ -4,7 +4,7 @@ using Ninject.Modules;
 
 namespace MFData.Module
 {
-    public sealed class DatabaseModule : NinjectModule
+    internal sealed class DatabaseModule : NinjectModule
     {
         private readonly string dataSource;
 
