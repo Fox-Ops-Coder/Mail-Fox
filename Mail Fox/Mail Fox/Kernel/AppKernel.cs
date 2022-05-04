@@ -1,4 +1,5 @@
 ﻿using Common.Module;
+using Mailing.Module;
 using MFData.Core;
 using MFData.Module;
 using Ninject;
@@ -23,7 +24,9 @@ namespace MailFox.Kernel
                     Directory.CreateDirectory(appFolden);
 
                 kernel = new StandardKernel();
-                kernel.Load(new WindowManagerModule(), new DatabaseModule(dataSource));
+                kernel.Load(new WindowManagerModule(),
+                    new DatabaseModule(dataSource),
+                    new MailingServiceModule());
 
                 IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
                 mailFoxDatabase.EnsureCreated();
