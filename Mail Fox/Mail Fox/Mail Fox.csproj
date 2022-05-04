@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Mailing\Mailing.csproj" />
     <ProjectReference Include="..\MFData\MFData.csproj" />
   </ItemGroup>
 
