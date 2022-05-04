@@ -23,10 +23,12 @@ namespace MailFox.UI.Mails
         public ObservableCollection<ContactAdapter> Contacts => contacts;
 
         private MailServiceAdapter? selectedMailService;
+
         public MailServiceAdapter? SelectedMailService
         { get => selectedMailService; set => selectedMailService = value; }
 
         private ContactAdapter? selectedContact;
+
         public ContactAdapter? SelectedContact
         { get => selectedContact; set => selectedContact = value; }
 

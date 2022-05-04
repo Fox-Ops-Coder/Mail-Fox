@@ -17,9 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\Mailing\Mailing.csproj" />
+    <ProjectReference Include="..\Google\Google.csproj" />
+    <ProjectReference Include="..\MailRu\MailRu.csproj" />
     <ProjectReference Include="..\MFData\MFData.csproj" />
+    <ProjectReference Include="..\Outlook\Outlook.csproj" />
   </ItemGroup>
 
 </Project>
