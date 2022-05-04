@@ -2,7 +2,7 @@
 
 namespace MailRu.Module
 {
-    public static class MailRuModuleBuilder
+    public static class MailRuModuleFactory
     {
         public static INinjectModule CreateModule() =>
             new MailRuServiceModule();

@@ -2,7 +2,7 @@
 
 namespace MFData.Module
 {
-    public static class MFDataModule
+    public static class MFDataModuleFactory
     {
         public static INinjectModule CreateModule(string dataSource) =>
             new DatabaseModule(dataSource);

@@ -1,9 +1,12 @@
 ﻿using Common.Module;
+using Google.Module;
 using Mailing.Module;
+using MailRu.Module;
 using MFData.Core;
 using MFData.Module;
 using Ninject;
 using Ninject.Modules;
+using Outlook.Module;
 using System;
 using System.IO;
 
@@ -29,7 +32,10 @@ namespace MailFox.Kernel
                 {
                     CommonModuleFactory.CreateModule(),
                     MailingModuleFactory.CreateModule(),
-                    MFDataModule.CreateModule(dataSource)
+                    MailRuModuleFactory.CreateModule(),
+                    GoogleModuleFactory.CreateModule(),
+                    OutlookModuleFactory.CreateModule(),
+                    MFDataModuleFactory.CreateModule(dataSource)
                 });
 
                 IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
