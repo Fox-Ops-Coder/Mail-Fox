@@ -6,6 +6,8 @@ namespace Mailing.Services
 {
     public interface IMailService
     {
+        string EmailAddress { get; }
+
         Task AuthorizeAsync(string emailAddress);
 
         Task SendMessageAsync(MailMessage message);
