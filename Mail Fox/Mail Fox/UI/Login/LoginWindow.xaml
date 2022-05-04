@@ -17,7 +17,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock x:Name="loginTitle" TextWrapping="Wrap" Text="Выбрерите почтовый сервис, в который хотите войти" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
-        <ComboBox x:Name="servicesComboBox" Grid.Row="1" ItemsSource="{Binding Services}" SelectedIndex="0" SelectedItem="{Binding SelectedService}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="200,0,200,0" />
+        <ComboBox x:Name="servicesComboBox" Grid.Row="1" SelectedIndex="0" SelectedItem="{Binding SelectedService}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="200,0,200,0" ItemsSource="{Binding MailServices, Mode=OneWay}" />
         <Button x:Name="loginButton" Content="Войти" Grid.Row="2" Command="{Binding LoginCommand, Mode=OneWay}" Margin="300,50,300,50" />
     </Grid>
 </Window>

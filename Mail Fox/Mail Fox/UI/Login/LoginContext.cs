@@ -1,10 +1,11 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
 using MailFox.UI.Context;
-using MailFox.UI.Login.Services;
+using MailFox.UI.Login.Adapter;
+using Mailing.Services;
 using Ninject;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -12,11 +13,10 @@ namespace MailFox.UI.Login
 {
     internal sealed class LoginContext : ContextBase
     {
-        private readonly ObservableCollection<ServiceAdapter> services;
-        public ObservableCollection<ServiceAdapter> Services => services;
+        private List<ServiceAdapter> mailServices;
+        public List<ServiceAdapter> MailServices => mailServices;
 
         private ServiceAdapter selectedService;
-
         public ServiceAdapter SelectedService
         {
             get => selectedService;
@@ -28,30 +28,25 @@ namespace MailFox.UI.Login
 
         public LoginContext()
         {
-            services = new();
+            IEnumerable<IMailServiceBuilder> services = kernel.GetAll<IMailServiceBuilder>();
 
-            foreach (ServiceType serviceType in Enum.GetValues(typeof(ServiceType)))
-                services.Add(new(serviceType));
+            mailServices = new();
+            foreach (IMailServiceBuilder service in services)
+                mailServices.Add(new(service));
 
-            selectedService = services.First();
+            selectedService = mailServices.First();
 
             IWindowManager windowManager = kernel.Get<IWindowManager>();
 
             loginCommand = new Command(obj =>
             {
-                switch (selectedService.ServiceType)
+                try
                 {
-                    case ServiceType.MailRu:
-                        windowManager.ShowMessage(this, $"Сервис {selectedService.TypeName} не доступен");
-                        break;
-
-                    case ServiceType.Google:
-                        windowManager.ShowMessage(this, $"Сервис {selectedService.TypeName} не доступен");
-                        break;
-
-                    case ServiceType.Outlook:
-                        windowManager.ShowMessage(this, $"Сервис {selectedService.TypeName} не доступен");
-                        break;
+                    selectedService.MailServiceBuilder.CreateMailService(windowManager);
+                }
+                catch (Exception ex)
+                {
+                    windowManager.ShowMessage(this, ex.Message);
                 }
             });
         }
