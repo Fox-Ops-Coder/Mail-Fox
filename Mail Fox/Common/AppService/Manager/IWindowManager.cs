@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Common.AppService.Manager
 {
@@ -10,8 +11,12 @@ namespace Common.AppService.Manager
 
         bool? ShowDialog(Window window);
 
-        object?[] ShowDialogWithResult(Window window);
+        Tuple<bool?, object?> ShowDialogWithResult(Window window);
 
         void ShowWindow(Window window);
+
+        void HideWindow(IWindow window);
+
+        void ShowWindow(IWindow window);
     }
 }

@@ -11,6 +11,9 @@
     <Compile Update="UI\Login\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Login\Pages\ServicePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\MailBox\Email\EmailPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Login\Pages\ServicePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\MailBox\Email\EmailPage.xaml">

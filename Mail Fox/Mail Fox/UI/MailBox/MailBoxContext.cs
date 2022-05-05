@@ -5,6 +5,7 @@ using MailFox.UI.Context;
 using MailFox.UI.Login;
 using MailFox.UI.Mails;
 using Ninject;
+using System;
 using System.Windows.Input;
 
 namespace MailFox.UI.MailBox
@@ -26,12 +27,17 @@ namespace MailFox.UI.MailBox
 
             loginCommand = new Command(obj =>
             {
-                bool? added = windowManager.ShowDialog(new LoginWindow());
+                Tuple<bool?, object?> added = windowManager.ShowDialogWithResult(new LoginWindow());
 
-                if (added != null && (bool)added)
+                if (added.Item1 != null && (bool)added.Item1)
+                {
                     windowManager.ShowMessage(this, "Почтовый ящик добавлен");
+
+                }
                 else
+                {
                     windowManager.ShowMessage(this, "Почтовый ящик не добавлен");
+                }
             });
 
             writeMail = new Command(obj =>

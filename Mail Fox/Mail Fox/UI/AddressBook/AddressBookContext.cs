@@ -8,6 +8,7 @@ using MailFox.UI.Context;
 using MFData.Core;
 using MFData.Entities;
 using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -63,11 +64,10 @@ namespace MailFox.UI.AddressBook
 
             addContactCommand = new Command(obj =>
             {
-                object?[] results = windowManager.ShowDialogWithResult(new AddContactWindow());
-                bool? added = results[0] as bool?;
+                Tuple<bool?, object?> results = windowManager.ShowDialogWithResult(new AddContactWindow());
 
-                if (added != null && (bool)added && results[1] is Contact newContact)
-                    contacts.Add(new(newContact, removeContactCommand));
+                if (results.Item1.GetValueOrDefault() && results.Item2 is Contact contact)
+                    contacts.Add(new(contact, removeContactCommand));
             });
 
             GetContacts(mailFoxDatabase, contacts, removeContactCommand).Wait();

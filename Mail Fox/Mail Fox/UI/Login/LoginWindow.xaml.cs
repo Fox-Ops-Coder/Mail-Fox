@@ -10,6 +10,7 @@ namespace MailFox.UI.Login
         public LoginWindow()
         {
             InitializeComponent();
+            DataContext = new LoginContext(loginFrame.NavigationService);
         }
     }
 }

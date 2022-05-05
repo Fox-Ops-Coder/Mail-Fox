@@ -8,7 +8,7 @@ namespace MailFox.UI.Context
         private readonly Guid guid;
         public Guid Guid => guid;
 
-        protected ContextBase() =>
+        public ContextBase() =>
             guid = Guid.NewGuid();
     }
 }

@@ -24,37 +24,47 @@ namespace Common.AppService.Manager
         {
             Window? target = FoundWindow(window);
 
-            if (target != null)
+            target?.Dispatcher.Invoke(() =>
             {
-                target.Dispatcher.Invoke(() =>
-                {
-                    target.DialogResult = dialogResult;
-                    target.Close();
-                });
-            }
+                target.DialogResult = dialogResult;
+                target.Close();
+            });
         }
 
         public void ShowMessage(IWindow window, string message)
         {
             Window? target = FoundWindow(window);
 
-            if (target != null)
-                target.Dispatcher.Invoke(() => MessageBox.Show(message));
+            target?.Dispatcher.Invoke(() => MessageBox.Show(message));
         }
 
         public bool? ShowDialog(Window window) => window.ShowDialog();
 
-        public object?[] ShowDialogWithResult(Window window)
+        public Tuple<bool?, object?> ShowDialogWithResult(Window window)
         {
-            object?[] results = new object?[2];
-            results[0] = window.ShowDialog();
+            bool? result = window.ShowDialog();
+            object? value = null;
 
-            if (window.DataContext is IResult result)
-                results[1] = result.Result;
+            if (window.DataContext is IResult context)
+                value = context.Result;
 
-            return results;
+            return new(result, value);
         }
 
         public void ShowWindow(Window window) => window.Show();
+
+        public void HideWindow(IWindow window)
+        {
+            Window? target = FoundWindow(window);
+
+            target?.Dispatcher.Invoke(() => target?.Hide());
+        }
+
+        public void ShowWindow(IWindow window)
+        {
+            Window? target = FoundWindow(window);
+
+            target?.Dispatcher.Invoke(() => target?.Show());
+        }
     }
 }

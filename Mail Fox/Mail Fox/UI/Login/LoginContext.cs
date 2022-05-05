@@ -1,54 +1,24 @@
-﻿using Common.AppService.Manager;
-using Common.UICommand;
-using MailFox.UI.Context;
-using MailFox.UI.Login.Adapter;
-using Mailing.Services;
-using Ninject;
+﻿using Common.AppService;
+using MailFox.UI.Login.Pages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace MailFox.UI.Login
 {
-    internal sealed class LoginContext : ContextBase
+    internal sealed class LoginContext : IWindow
     {
-        private List<ServiceAdapter> mailServices;
-        public List<ServiceAdapter> MailServices => mailServices;
+        private readonly NavigationService navigationService;
 
-        private ServiceAdapter selectedService;
-        public ServiceAdapter SelectedService
+        private readonly Guid guid;
+        public Guid Guid => guid;
+
+        public LoginContext(NavigationService navigationService)
         {
-            get => selectedService;
-            set => selectedService = value;
-        }
+            this.navigationService = navigationService;
 
-        private readonly ICommand loginCommand;
-        public ICommand LoginCommand => loginCommand;
+            guid = Guid.NewGuid();
 
-        public LoginContext()
-        {
-            IEnumerable<IMailServiceBuilder> services = kernel.GetAll<IMailServiceBuilder>();
-
-            mailServices = new();
-            foreach (IMailServiceBuilder service in services)
-                mailServices.Add(new(service));
-
-            selectedService = mailServices.First();
-
-            IWindowManager windowManager = kernel.Get<IWindowManager>();
-
-            loginCommand = new Command(obj =>
-            {
-                try
-                {
-                    selectedService.MailServiceBuilder.CreateMailService(windowManager);
-                }
-                catch (Exception ex)
-                {
-                    windowManager.ShowMessage(this, ex.Message);
-                }
-            });
+            navigationService.Navigate(new ServicePage(guid));
         }
     }
 }

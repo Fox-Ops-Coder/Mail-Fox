@@ -6,6 +6,6 @@ namespace Mailing.Services
     {
         string ServiceName { get; }
 
-        IMailService CreateMailService(IWindowManager windowManager);
+        IMailService? CreateMailService(IWindowManager windowManager);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Common.AppService.Manager;
 using Mailing.Services;
 using MailRu.UI;
+using System;
 
 namespace MailRu.ServiceBuilder
 {
@@ -9,17 +10,17 @@ namespace MailRu.ServiceBuilder
         private const string serviceName = "Mail.Ru";
         public string ServiceName => serviceName;
 
-        public IMailService CreateMailService(IWindowManager windowManager)
+        public IMailService? CreateMailService(IWindowManager windowManager)
         {
             LoginWindow loginWindow = new();
 
             if (loginWindow.DataContext is LoginWindowContext context)
                 context.WindowManager = windowManager;
 
-            object?[] results = windowManager.ShowDialogWithResult(loginWindow);
+            Tuple<bool?, object?> results = windowManager.ShowDialogWithResult(loginWindow);
 
-            if (results[0] is bool result && result && results[1] is IMailService mailService)
-                return mailService;
+            if (results.Item1.GetValueOrDefault())
+                return results.Item2 as IMailService;
             else
                 return null;
         }

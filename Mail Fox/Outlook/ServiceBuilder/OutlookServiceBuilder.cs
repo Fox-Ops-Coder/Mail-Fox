@@ -9,7 +9,7 @@ namespace Outlook.ServiceBuilder
         private const string serviceName = "Outlook";
         public string ServiceName => serviceName;
 
-        public IMailService CreateMailService(IWindowManager windowManager)
+        public IMailService? CreateMailService(IWindowManager windowManager)
         {
             throw new NotImplementedException();
         }
