@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Net.Mail;
+﻿using System.Net;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace Mailing.Services
 {
     public interface IMailService
     {
-        string EmailAddress { get; }
+        string? Email { get; }
 
-        Task AuthorizeAsync(string emailAddress);
+        SecureString? Password { get; }
 
-        Task SendMessageAsync(MailMessage message);
+        bool Connected { get; }
 
-        Task RemoveMessage(MailMessage message);
+        bool Authentificated { get; }
 
-        Task<IEnumerable<MailMessage>> GetMessagesAsync();
+        Task<bool> ConnectAsync();
+
+        Task DisconnectAsync();
+
+        Task<bool> AuthorizeAsync(string email, SecureString password);
     }
 }

@@ -11,6 +11,6 @@ namespace MailFox.UI.Mails.Adapters
             this.mailService = mailService;
 
         public override string ToString() =>
-            mailService.EmailAddress;
+            !string.IsNullOrEmpty(mailService.Email) ? mailService.Email : string.Empty;
     }
 }

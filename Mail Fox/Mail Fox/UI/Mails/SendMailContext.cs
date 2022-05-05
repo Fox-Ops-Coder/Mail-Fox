@@ -84,10 +84,10 @@ namespace MailFox.UI.Mails
                     MailAddressCollection targets = new();
                     targets.Add(new(selectedContact.Contact.ContactEmail));
 
-                    await selectedMailService.MailService.SendMessageAsync(new(
+                    /*await selectedMailService.MailService.SendMessageAsync(new(
                         selectedMailService.MailService.EmailAddress,
                         selectedContact.Contact.ContactEmail,
-                        mailTheme, mailText));
+                        mailTheme, mailText));*/
 
                     windowManager.ShowMessage(this, "Сообщение отправлено");
                     windowManager.CloseWindow(this);
