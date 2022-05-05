@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.AppService.WindowService;
+using System;
 using System.Windows;
 
 namespace Common.AppService.Manager
@@ -14,9 +15,5 @@ namespace Common.AppService.Manager
         Tuple<bool?, object?> ShowDialogWithResult(Window window);
 
         void ShowWindow(Window window);
-
-        void HideWindow(IWindow window);
-
-        void ShowWindow(IWindow window);
     }
 }

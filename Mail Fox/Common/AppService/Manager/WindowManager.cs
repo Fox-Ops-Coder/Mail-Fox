@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.AppService.WindowService;
+using System;
 using System.Windows;
 
 namespace Common.AppService.Manager
@@ -52,19 +53,5 @@ namespace Common.AppService.Manager
         }
 
         public void ShowWindow(Window window) => window.Show();
-
-        public void HideWindow(IWindow window)
-        {
-            Window? target = FoundWindow(window);
-
-            target?.Dispatcher.Invoke(() => target?.Hide());
-        }
-
-        public void ShowWindow(IWindow window)
-        {
-            Window? target = FoundWindow(window);
-
-            target?.Dispatcher.Invoke(() => target?.Show());
-        }
     }
 }

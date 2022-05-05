@@ -1,5 +1,4 @@
-﻿using Common.AppService;
-using Common.AppService.Manager;
+﻿using Common.AppService.WindowService;
 using Common.UICommand;
 using Mailing.Services;
 using MailRu.Service;
@@ -9,12 +8,8 @@ using System.Windows.Input;
 
 namespace MailRu.UI
 {
-    internal sealed class LoginWindowContext : IWindow, IResult
+    internal sealed class LoginPageContext
     {
-        private IWindowManager? windowManager;
-        public IWindowManager? WindowManager
-        { get => windowManager; set => windowManager = value; }
-
         private string email;
         public string Email
         { get => email; set => email = value; }
@@ -22,15 +17,8 @@ namespace MailRu.UI
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
 
-        private readonly Guid guid;
-        public Guid Guid => guid;
-
-        private IMailService? createdMailService;
-        public object? Result => createdMailService;
-
-        public LoginWindowContext()
+        public LoginPageContext(IManagable managable, INavigator navigator)
         {
-            guid = Guid.NewGuid();
             email = string.Empty;
 
             loginCommand = new Command(async obj =>
@@ -48,12 +36,10 @@ namespace MailRu.UI
                         result = await mailService.AuthorizeAsync(email, passwordBox.SecurePassword);
 
                         if (result)
-                            createdMailService = mailService;
+                            managable.CloseWithArg(result, mailService);
                         else
                             await mailService.DisconnectAsync();
                     }
-
-                    windowManager.CloseWindow(this, result);
                 }
             });
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.AppService
+namespace Common.AppService.WindowService
 {
     public interface IWindow
     {

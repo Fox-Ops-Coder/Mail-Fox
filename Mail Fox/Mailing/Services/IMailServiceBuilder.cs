@@ -1,4 +1,5 @@
-﻿using Common.AppService.Manager;
+﻿using Common.AppService;
+using Common.AppService.WindowService;
 
 namespace Mailing.Services
 {
@@ -6,6 +7,6 @@ namespace Mailing.Services
     {
         string ServiceName { get; }
 
-        IMailService? CreateMailService(IWindowManager windowManager);
+        void CreateMailService(IManagable managable, INavigator navigator);
     }
 }

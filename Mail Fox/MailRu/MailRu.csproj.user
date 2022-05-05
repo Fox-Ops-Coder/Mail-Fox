@@ -2,12 +2,12 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="UI\LoginWindow.xaml.cs">
+    <Compile Update="UI\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UI\LoginWindow.xaml">
+    <Page Update="UI\LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

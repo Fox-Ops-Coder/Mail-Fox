@@ -1,4 +1,5 @@
 ﻿using Common.AppService;
+using Common.AppService.WindowService;
 using System;
 
 namespace MailFox.UI.Context

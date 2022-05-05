@@ -1,5 +1,6 @@
 ﻿using Common.AppService;
 using Common.AppService.Manager;
+using Common.AppService.WindowService;
 using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Login.Adapter;
@@ -12,11 +13,8 @@ using System.Windows.Input;
 
 namespace MailFox.UI.Login.Pages
 {
-    internal sealed class ServiceContext : KernelContext, IWindow
+    internal sealed class ServiceContext : KernelContext
     {
-        private readonly Guid guid;
-        public Guid Guid => throw new NotImplementedException();
-
         private readonly List<ServiceAdapter> mailServices;
         public List<ServiceAdapter> MailServices => mailServices;
 
@@ -30,10 +28,8 @@ namespace MailFox.UI.Login.Pages
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
 
-        public ServiceContext(Guid guid)
+        public ServiceContext(IManagable managable, INavigator navigator)
         {
-            this.guid = guid;
-
             IEnumerable<IMailServiceBuilder> services = kernel.GetAll<IMailServiceBuilder>();
 
             mailServices = new();
@@ -45,19 +41,7 @@ namespace MailFox.UI.Login.Pages
             IWindowManager windowManager = kernel.Get<IWindowManager>();
 
             loginCommand = new Command(obj =>
-            {
-                /*windowManager.HideWindow(this);
-
-                createService = selectedService.MailServiceBuilder.CreateMailService(windowManager);
-
-                windowManager.ShowWindow(this);
-
-                if (createService != null)
-                    windowManager.CloseWindow(this, true);
-                else
-                    windowManager.CloseWindow(this, false);*/
-            });
-
+            selectedService.MailServiceBuilder.CreateMailService(managable, navigator));
         }
     }
 }

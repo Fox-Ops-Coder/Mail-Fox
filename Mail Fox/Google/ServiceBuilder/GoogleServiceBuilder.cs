@@ -1,4 +1,4 @@
-﻿using Common.AppService.Manager;
+﻿using Common.AppService.WindowService;
 using Mailing.Services;
 using System;
 
@@ -9,7 +9,7 @@ namespace Google.ServiceBuilder
         private const string serviceName = "Google";
         public string ServiceName => serviceName;
 
-        public IMailService? CreateMailService(IWindowManager windowManager)
+        public void CreateMailService(IManagable managable, INavigator navigator)
         {
             throw new NotImplementedException();
         }

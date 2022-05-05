@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Common.AppService;
+using Common.AppService.WindowService;
+using System;
 using System.Windows.Controls;
 
 namespace MailFox.UI.Login.Pages
@@ -8,11 +10,11 @@ namespace MailFox.UI.Login.Pages
     /// </summary>
     internal sealed partial class ServicePage : Page
     {
-        public ServicePage(Guid guid)
+        public ServicePage(IManagable managable, INavigator navigator)
         {
             InitializeComponent();
 
-            DataContext = new ServiceContext(guid);
+            DataContext = new ServiceContext(managable, navigator);
         }
     }
 }

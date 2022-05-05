@@ -1,5 +1,6 @@
 ﻿using Common.AppService;
 using Common.AppService.Manager;
+using Common.AppService.WindowService;
 using Common.UICommand;
 using MailFox.UI.Context;
 using MFData.Core;
