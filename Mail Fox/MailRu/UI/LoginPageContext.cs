@@ -2,7 +2,6 @@
 using Common.UICommand;
 using Mailing.Services;
 using MailRu.Service;
-using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -11,6 +10,7 @@ namespace MailRu.UI
     internal sealed class LoginPageContext
     {
         private string email;
+
         public string Email
         { get => email; set => email = value; }
 

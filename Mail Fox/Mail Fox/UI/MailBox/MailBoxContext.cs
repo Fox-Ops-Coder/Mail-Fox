@@ -32,7 +32,6 @@ namespace MailFox.UI.MailBox
                 if (added.Item1 != null && (bool)added.Item1)
                 {
                     windowManager.ShowMessage(this, "Почтовый ящик добавлен");
-
                 }
                 else
                 {

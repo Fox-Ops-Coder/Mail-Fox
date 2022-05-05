@@ -1,5 +1,4 @@
-﻿using Common.AppService;
-using Common.AppService.WindowService;
+﻿using Common.AppService.WindowService;
 
 namespace Mailing.Services
 {

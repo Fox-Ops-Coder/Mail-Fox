@@ -1,6 +1,4 @@
-﻿using Common.AppService;
-using Common.AppService.WindowService;
-using System;
+﻿using Common.AppService.WindowService;
 using System.Windows.Controls;
 
 namespace MailFox.UI.Login.Pages

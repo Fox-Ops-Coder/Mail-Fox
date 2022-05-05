@@ -9,9 +9,9 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <Context:ContextBase/>
+        <Context:ContextBase />
     </Window.DataContext>
     <Grid x:Name="loginGrid">
-        <Frame x:Name="loginFrame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="loginFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

@@ -1,12 +1,10 @@
-﻿using Common.AppService;
-using Common.AppService.Manager;
+﻿using Common.AppService.Manager;
 using Common.AppService.WindowService;
 using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Login.Adapter;
 using Mailing.Services;
 using Ninject;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -19,6 +17,7 @@ namespace MailFox.UI.Login.Pages
         public List<ServiceAdapter> MailServices => mailServices;
 
         private ServiceAdapter selectedService;
+
         public ServiceAdapter SelectedService
         {
             get => selectedService;

@@ -9,7 +9,7 @@ namespace MailRu.ServiceBuilder
         private const string serviceName = "Mail.Ru";
         public string ServiceName => serviceName;
 
-        public void CreateMailService(IManagable managable, INavigator navigator) => 
+        public void CreateMailService(IManagable managable, INavigator navigator) =>
             navigator.Navigate(new LoginPage(managable, navigator));
     }
 }
