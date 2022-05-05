@@ -16,18 +16,14 @@ namespace MFData.Entities
         public string Email { get; set; }
 
         [Required, Column(TypeName = SQLTypes.TEXT)]
-        public string AuthToke { get; set; }
-
-        [Required, Column(TypeName = SQLTypes.TEXT)]
-        public string RefreshToken { get; set; }
+        public string Password { get; set; }
 
         public IEnumerable<Contact> Contacts { get; set; }
 
         public UserEmail()
         {
             Email = string.Empty;
-            AuthToke = string.Empty;
-            RefreshToken = string.Empty;
+            Password = string.Empty;
 
             Contacts = new List<Contact>();
         }
