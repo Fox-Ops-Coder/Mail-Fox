@@ -21,6 +21,7 @@
     <ProjectReference Include="..\MailRu\MailRu.csproj" />
     <ProjectReference Include="..\MFData\MFData.csproj" />
     <ProjectReference Include="..\Outlook\Outlook.csproj" />
+    <ProjectReference Include="..\Security\Security.csproj" />
   </ItemGroup>
 
 </Project>
