@@ -1,5 +1,6 @@
 ﻿using MailFox.UI.Context;
 using MailFox.UI.MailBox.Email.Adapters;
+using Mailing.ServiceManager;
 using Mailing.Services;
 using MFData.Core;
 using MFData.Entities;
@@ -20,6 +21,7 @@ namespace MailFox.UI.MailBox.Email
         {
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
             ISecurityService securityService = kernel.Get<ISecurityService>();
+            IMailServiceManager mailServiceManager = kernel.Get<IMailServiceManager>();
 
             IEnumerable<IMailServiceBuilder> mailServiceBuilders = kernel.GetAll<IMailServiceBuilder>();
             IEnumerable<UserEmail> userEmails = await mailFoxDatabase.GetUserEmailsAsync();
@@ -33,13 +35,16 @@ namespace MailFox.UI.MailBox.Email
                     .CreateMailService(userEmail.Email, securityService.DecodeString(userEmail.Password));
 
                 if (mailService != null)
-                    mailServices.Add(new(mailService));
+                    mailServiceManager.AddService(mailService);
             }
         }
 
         public EmailPageContext()
         {
             mailServices = new();
+
+            IMailServiceManager mailServiceManager = kernel.Get<IMailServiceManager>();
+            mailServiceManager.OnAdd += new IMailServiceManager.MailServiceHandler(service => mailServices.Add(new(service)));
 
             LogIn();
         }

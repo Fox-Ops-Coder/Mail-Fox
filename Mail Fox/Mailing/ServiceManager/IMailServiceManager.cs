@@ -9,6 +9,12 @@ namespace Mailing.ServiceManager
 
         void RemoveService(IMailService mailService);
 
+        delegate void MailServiceHandler(IMailService mailService);
+
+        event MailServiceHandler OnAdd;
+
+        event MailServiceHandler OnRemove;
+
         IReadOnlyList<IMailService> GetMailServices();
     }
 }
