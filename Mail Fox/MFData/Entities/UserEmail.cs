@@ -1,4 +1,5 @@
 ﻿using MFData.Types;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,15 +16,15 @@ namespace MFData.Entities
         [Required, Column(TypeName = SQLTypes.TEXT)]
         public string Email { get; set; }
 
-        [Required, Column(TypeName = SQLTypes.TEXT)]
-        public string Password { get; set; }
+        [Required, Column(TypeName = SQLTypes.BLOB)]
+        public byte[] Password { get; set; }
 
         public IEnumerable<Contact> Contacts { get; set; }
 
         public UserEmail()
         {
             Email = string.Empty;
-            Password = string.Empty;
+            Password = Array.Empty<byte>();
 
             Contacts = new List<Contact>();
         }

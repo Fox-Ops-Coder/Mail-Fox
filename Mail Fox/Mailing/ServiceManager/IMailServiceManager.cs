@@ -5,9 +5,9 @@ namespace Mailing.ServiceManager
 {
     public interface IMailServiceManager
     {
-        void AddServiceAsync(IMailService mailService);
+        void AddService(IMailService mailService);
 
-        void RemoveServiceAsync(IMailService mailService);
+        void RemoveService(IMailService mailService);
 
         IReadOnlyList<IMailService> GetMailServices();
     }

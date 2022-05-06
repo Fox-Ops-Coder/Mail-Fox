@@ -10,10 +10,10 @@ namespace Mailing.ServiceManager
         public MailServiceManager() =>
             mailServices = new List<IMailService>();
 
-        public void AddServiceAsync(IMailService mailService) =>
+        public void AddService(IMailService mailService) =>
             mailServices.Add(mailService);
 
-        public void RemoveServiceAsync(IMailService mailService) =>
+        public void RemoveService(IMailService mailService) =>
             mailServices.Remove(mailService);
 
         public IReadOnlyList<IMailService> GetMailServices() => mailServices;
