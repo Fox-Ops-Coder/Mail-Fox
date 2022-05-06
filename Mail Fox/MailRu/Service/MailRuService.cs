@@ -25,16 +25,21 @@ namespace MailRu.Service
 
         public string? Email => userCredentials?.UserName;
 
+        private string service;
+        public string Service => service;
+
         public SecureString? Password => userCredentials?.SecurePassword;
 
         public bool Connected => pop3Client.IsConnected && smtpClient.IsConnected;
 
         public bool Authentificated => pop3Client.IsAuthenticated && smtpClient.IsAuthenticated;
 
-        public MailRuService()
+        public MailRuService(string service)
         {
             pop3Client = new();
             smtpClient = new();
+
+            this.service = service;
         }
 
         public async Task<bool> ConnectAsync()

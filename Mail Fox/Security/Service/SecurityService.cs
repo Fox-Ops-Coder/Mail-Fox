@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,9 +10,9 @@ namespace Security.Service
     {
         public byte[] EncodeString(SecureString secureString)
         {
-            #pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
-            byte[] data = Encoding.UTF8.GetBytes(secureString.ToString());
-            #pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+            string pass = new NetworkCredential(null, secureString).Password;
+
+            byte[] data = Encoding.UTF8.GetBytes(pass);
 
             using Aes aes = Aes.Create();
             byte[] key =
@@ -54,6 +55,8 @@ namespace Security.Service
             SecureString secureString = new();
             foreach (char character in decoded)
                 secureString.AppendChar(character);
+
+            secureString.MakeReadOnly();
 
             return secureString;
         }

@@ -16,6 +16,9 @@ namespace MFData.Entities
         [Required, Column(TypeName = SQLTypes.TEXT)]
         public string Email { get; set; }
 
+        [Required, Column(TypeName = SQLTypes.TEXT)]
+        public string Service { get; set; }
+
         [Required, Column(TypeName = SQLTypes.BLOB)]
         public byte[] Password { get; set; }
 
@@ -24,6 +27,7 @@ namespace MFData.Entities
         public UserEmail()
         {
             Email = string.Empty;
+            Service = string.Empty;
             Password = Array.Empty<byte>();
 
             Contacts = new List<Contact>();

@@ -47,6 +47,7 @@ namespace MailFox.UI.MailBox
                     UserEmail userEmail = new()
                     {
                         Email = mailService.Email,
+                        Service = mailService.Service,
                         Password = securityService.EncodeString(mailService.Password),
                     };
                     #pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.

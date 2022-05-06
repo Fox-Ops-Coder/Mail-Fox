@@ -7,6 +7,8 @@ namespace Mailing.Services
     {
         string? Email { get; }
 
+        string Service { get; }
+
         SecureString? Password { get; }
 
         bool Connected { get; }

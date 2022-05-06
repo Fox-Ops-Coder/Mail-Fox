@@ -17,7 +17,7 @@ namespace MailRu.UI
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
 
-        public LoginPageContext(IManagable managable, INavigator navigator)
+        public LoginPageContext(IManagable managable, INavigator navigator, string service)
         {
             email = string.Empty;
 
@@ -27,7 +27,7 @@ namespace MailRu.UI
                 {
                     bool result = false;
 
-                    IMailService mailService = new MailRuService();
+                    IMailService mailService = new MailRuService(service);
 
                     result = await mailService.ConnectAsync();
 

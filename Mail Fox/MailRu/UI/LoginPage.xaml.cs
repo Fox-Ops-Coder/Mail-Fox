@@ -8,11 +8,11 @@ namespace MailRu.UI
     /// </summary>
     internal sealed partial class LoginPage : Page
     {
-        public LoginPage(IManagable managable, INavigator navigator)
+        public LoginPage(IManagable managable, INavigator navigator, string service)
         {
             InitializeComponent();
 
-            DataContext = new LoginPageContext(managable, navigator);
+            DataContext = new LoginPageContext(managable, navigator, service);
         }
     }
 }
