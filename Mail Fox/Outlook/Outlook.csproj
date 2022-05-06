@@ -7,7 +7,13 @@
     <IsPublishable>False</IsPublishable>
     <DebugType>full</DebugType>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <OutputType>Library</OutputType>
+    <UseWPF>True</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.2.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mailing\Mailing.csproj" />

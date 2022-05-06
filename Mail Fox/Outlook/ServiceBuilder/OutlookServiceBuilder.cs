@@ -1,6 +1,7 @@
 ﻿using Common.AppService.WindowService;
 using Mailing.Services;
-using System;
+using Outlook.Service;
+using Outlook.UI;
 using System.Security;
 using System.Threading.Tasks;
 
@@ -13,12 +14,19 @@ namespace Outlook.ServiceBuilder
 
         public async Task<IMailService?> CreateMailService(string email, SecureString password)
         {
-            throw new NotImplementedException();
+            IMailService mailService = new OutlookService(serviceName);
+
+            bool result = await mailService.ConnectAsync();
+
+            if (result)
+                result = await mailService.AuthorizeAsync(email, password);
+            else
+                await mailService.DisconnectAsync();
+
+            return result ? mailService : null;
         }
 
-        public void CreateMailService(IManagable managable, INavigator navigator)
-        {
-            throw new NotImplementedException();
-        }
+        public void CreateMailService(IManagable managable, INavigator navigator) =>
+            navigator.Navigate(new LoginPage(managable, navigator, serviceName));
     }
 }
