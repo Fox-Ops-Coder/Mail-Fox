@@ -41,18 +41,18 @@ namespace MailFox.UI.MailBox
                 {
                     IMailService? mailService = added.Item2 as IMailService;
 
-                    #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
-                    #pragma warning disable CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
-                    #pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+#pragma warning disable CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
                     UserEmail userEmail = new()
                     {
                         Email = mailService.Email,
                         Service = mailService.Service,
                         Password = securityService.EncodeString(mailService.Password),
                     };
-                    #pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
-                    #pragma warning restore CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
-                    #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning restore CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
 
                     await mailFoxDatabase.AddUserEmailAsync(userEmail);
                     serviceManager.AddService(mailService);

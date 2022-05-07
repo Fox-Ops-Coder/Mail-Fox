@@ -9,6 +9,7 @@ namespace Mailing.ServiceManager
         private readonly List<IMailService> mailServices;
 
         public event MailServiceHandler? OnAdd;
+
         public event MailServiceHandler? OnRemove;
 
         public MailServiceManager() =>

@@ -5,7 +5,7 @@ namespace MailFox.UI.MailBox.Message
     /// <summary>
     /// Логика взаимодействия для MessagePage.xaml
     /// </summary>
-    public partial class MessagePage : Page
+    internal sealed partial class MessagePage : Page
     {
         public MessagePage()
         {
