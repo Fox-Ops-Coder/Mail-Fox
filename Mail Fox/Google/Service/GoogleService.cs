@@ -3,6 +3,8 @@ using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using MimeKit;
+using System;
 using System.Net;
 using System.Security;
 using System.Threading.Tasks;
@@ -81,6 +83,18 @@ namespace Google.Service
             }
 
             return Authentificated;
+        }
+
+        public async Task<string> SendMessageAsync(MimeMessage mailMessage)
+        {
+            try
+            {
+                return await smtpClient.SendAsync(mailMessage);
+            }
+            catch (Exception err)
+            {
+                return err.Message;
+            }
         }
     }
 }

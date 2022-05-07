@@ -1,10 +1,13 @@
 ﻿using Mailing.Services;
 using MailKit.Net.Imap;
-using MailKit.Net.Smtp;
 using MailKit.Security;
+using MimeKit;
+using System;
 using System.Net;
+using System.Net.Mail;
 using System.Security;
 using System.Threading.Tasks;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace Outlook.Service
 {
@@ -80,6 +83,18 @@ namespace Outlook.Service
             }
 
             return Authentificated;
+        }
+
+        public async Task<string> SendMessageAsync(MimeMessage mailMessage)
+        {
+            try
+            {
+                return await smtpClient.SendAsync(mailMessage);
+            }
+            catch (Exception err)
+            {
+                return err.Message;
+            }
         }
     }
 }

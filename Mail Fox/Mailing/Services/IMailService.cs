@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using MimeKit;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace Mailing.Services
@@ -20,5 +21,7 @@ namespace Mailing.Services
         Task DisconnectAsync();
 
         Task<bool> AuthorizeAsync(string email, SecureString password);
+
+        Task<string> SendMessageAsync(MimeMessage mailMessage);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Mailing.Services;
 using MailKit.Net.Imap;
 using MailKit.Security;
+using MimeKit;
+using System;
 using System.Net;
 using System.Security;
 using System.Threading.Tasks;
@@ -80,6 +82,18 @@ namespace MailRu.Service
             }
 
             return Authentificated;
+        }
+
+        public async Task<string> SendMessageAsync(MimeMessage mailMessage)
+        {
+            try
+            {
+                return await smtpClient.SendAsync(mailMessage);
+            }
+            catch (Exception err)
+            {
+                return err.Message;
+            }
         }
     }
 }

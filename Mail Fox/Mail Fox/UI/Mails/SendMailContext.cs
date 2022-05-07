@@ -6,10 +6,12 @@ using Mailing.ServiceManager;
 using Mailing.Services;
 using MFData.Core;
 using MFData.Entities;
+using MimeKit;
 using Ninject;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Net.Mail;
+using System.IO;
+using System.Text;
 using System.Windows.Input;
 
 namespace MailFox.UI.Mails
@@ -33,10 +35,12 @@ namespace MailFox.UI.Mails
         { get => selectedContact; set => selectedContact = value; }
 
         private string mailTheme;
-        public string MailTheme => mailTheme;
+        public string MailTheme
+        { get => mailTheme; set => mailTheme = value; }
 
         private string mailText;
-        public string MailText => mailText;
+        public string MailText
+        { get => mailText; set => mailText = value; }
 
         private readonly ICommand sendCommand;
         public ICommand SendCommand => sendCommand;
@@ -81,13 +85,13 @@ namespace MailFox.UI.Mails
             {
                 if (selectedMailService != null && selectedContact != null)
                 {
-                    MailAddressCollection targets = new();
-                    targets.Add(new(selectedContact.Contact.ContactEmail));
+                    MimeMessage message = new();
+                    message.Sender = new("???", selectedMailService.MailService.Email);
+                    message.To.Add(InternetAddress.Parse(selectedContact.Contact.ContactEmail));
+                    message.Subject = mailTheme;
+                    message.Body = new TextPart() { Text = mailText };
 
-                    /*await selectedMailService.MailService.SendMessageAsync(new(
-                        selectedMailService.MailService.EmailAddress,
-                        selectedContact.Contact.ContactEmail,
-                        mailTheme, mailText));*/
+                    string result = await selectedMailService.MailService.SendMessageAsync(message);
 
                     windowManager.ShowMessage(this, "Сообщение отправлено");
                     windowManager.CloseWindow(this);

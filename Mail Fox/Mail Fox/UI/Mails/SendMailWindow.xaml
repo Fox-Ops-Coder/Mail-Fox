@@ -23,12 +23,12 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock x:Name="fromTitle" TextWrapping="Wrap" Text="Кому:" />
-        <ComboBox x:Name="toBox" Grid.Column="1" ItemsSource="{Binding Contacts}" SelectedIndex="0" SelectedItem="{Binding SelectedContact, Mode=OneWay}" />
+        <ComboBox x:Name="toBox" Grid.Column="1" ItemsSource="{Binding Contacts}" SelectedIndex="0" SelectedItem="{Binding SelectedContact}" />
         <TextBlock x:Name="toTitle" TextWrapping="Wrap" Text="От кого:" Grid.Row="1" />
-        <ComboBox x:Name="fromBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding MailServices}" SelectedIndex="0" SelectedItem="{Binding SelectedMailService, Mode=OneWay}" />
+        <ComboBox x:Name="fromBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding MailServices}" SelectedIndex="0" SelectedItem="{Binding SelectedMailService}" />
         <TextBlock x:Name="themeTitle" Grid.Row="2" TextWrapping="Wrap" Text="Тема:" />
-        <TextBox x:Name="themeBox" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="{Binding MailTheme, Mode=OneWay}" />
-        <TextBox x:Name="messageBox" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{Binding MailText, Mode=OneWay}" />
+        <TextBox x:Name="themeBox" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="{Binding MailTheme}" />
+        <TextBox x:Name="messageBox" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{Binding MailText}" />
         <Button x:Name="sendButton" Grid.Row="4" Content="Отправить" Grid.ColumnSpan="2" Margin="300,20,300,20" Command="{Binding SendCommand, Mode=OneWay}" />
     </Grid>
 </Window>
