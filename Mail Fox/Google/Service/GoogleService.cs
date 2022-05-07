@@ -1,4 +1,5 @@
 ﻿using Mailing.Services;
+using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -10,16 +11,16 @@ namespace Google.Service
 {
     internal sealed class GoogleService : IMailService
     {
-        private readonly Pop3Client pop3Client;
+        private readonly ImapClient imapClient;
         private readonly SmtpClient smtpClient;
 
-        private const string Pop3Host = "pop.gmail.com";
-        private const int Pop3Port = 995;
-        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.SslOnConnect;
+        private const string ImapHost = "imap.gmail.com";
+        private const int ImapPort = 993;
+        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.Auto;
 
         private const string SmtpHost = "smtp.gmail.com";
         private const int SmtpPort = 587;
-        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.StartTls;
+        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.Auto;
 
         private NetworkCredential? userCredentials;
 
@@ -30,13 +31,13 @@ namespace Google.Service
 
         public SecureString? Password => userCredentials?.SecurePassword;
 
-        public bool Connected => pop3Client.IsConnected && smtpClient.IsConnected;
+        public bool Connected => imapClient.IsConnected && smtpClient.IsConnected;
 
-        public bool Authentificated => pop3Client.IsAuthenticated && smtpClient.IsAuthenticated;
+        public bool Authentificated => imapClient.IsAuthenticated && smtpClient.IsAuthenticated;
 
         public GoogleService(string serviceName)
         {
-            pop3Client = new();
+            imapClient = new();
             smtpClient = new();
 
             service = serviceName;
@@ -46,7 +47,7 @@ namespace Google.Service
         {
             try
             {
-                await pop3Client.ConnectAsync(Pop3Host, Pop3Port, Pop3SecureOption);
+                await imapClient.ConnectAsync(ImapHost, ImapPort, Pop3SecureOption);
                 await smtpClient.ConnectAsync(SmtpHost, SmtpPort, SmtpSecureOption);
             }
             catch
@@ -59,7 +60,7 @@ namespace Google.Service
 
         public async Task DisconnectAsync()
         {
-            await pop3Client.DisconnectAsync(true);
+            await imapClient.DisconnectAsync(true);
             await smtpClient.DisconnectAsync(true);
         }
 
@@ -69,7 +70,7 @@ namespace Google.Service
 
             try
             {
-                await pop3Client.AuthenticateAsync(userCredentials);
+                await imapClient.AuthenticateAsync(userCredentials);
                 await smtpClient.AuthenticateAsync(userCredentials);
             }
             catch

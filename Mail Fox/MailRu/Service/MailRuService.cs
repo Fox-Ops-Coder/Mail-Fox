@@ -1,5 +1,5 @@
 ﻿using Mailing.Services;
-using MailKit.Net.Pop3;
+using MailKit.Net.Imap;
 using MailKit.Security;
 using System.Net;
 using System.Security;
@@ -10,33 +10,33 @@ namespace MailRu.Service
 {
     internal sealed class MailRuService : IMailService
     {
-        private readonly Pop3Client pop3Client;
+        private readonly ImapClient imapClient;
         private readonly SmtpClient smtpClient;
 
-        private const string Pop3Host = "pop.mail.ru";
-        private const int Pop3Port = 995;
-        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.SslOnConnect;
+        private const string ImapHost = "imap.mail.ru";
+        private const int ImapPort = 993;
+        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.Auto;
 
         private const string SmtpHost = "smtp.mail.ru";
         private const int SmtpPort = 465;
-        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.SslOnConnect;
+        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.Auto;
 
         private NetworkCredential? userCredentials;
 
         public string? Email => userCredentials?.UserName;
 
-        private string service;
+        private readonly string service;
         public string Service => service;
 
         public SecureString? Password => userCredentials?.SecurePassword;
 
-        public bool Connected => pop3Client.IsConnected && smtpClient.IsConnected;
+        public bool Connected => imapClient.IsConnected && smtpClient.IsConnected;
 
-        public bool Authentificated => pop3Client.IsAuthenticated && smtpClient.IsAuthenticated;
+        public bool Authentificated => imapClient.IsAuthenticated && smtpClient.IsAuthenticated;
 
         public MailRuService(string service)
         {
-            pop3Client = new();
+            imapClient = new();
             smtpClient = new();
 
             this.service = service;
@@ -46,7 +46,7 @@ namespace MailRu.Service
         {
             try
             {
-                await pop3Client.ConnectAsync(Pop3Host, Pop3Port, Pop3SecureOption);
+                await imapClient.ConnectAsync(ImapHost, ImapPort, Pop3SecureOption);
                 await smtpClient.ConnectAsync(SmtpHost, SmtpPort, SmtpSecureOption);
             }
             catch
@@ -59,7 +59,7 @@ namespace MailRu.Service
 
         public async Task DisconnectAsync()
         {
-            await pop3Client.DisconnectAsync(true);
+            await imapClient.DisconnectAsync(true);
             await smtpClient.DisconnectAsync(true);
         }
 
@@ -69,7 +69,7 @@ namespace MailRu.Service
 
             try
             {
-                await pop3Client.AuthenticateAsync(userCredentials);
+                await imapClient.AuthenticateAsync(userCredentials);
                 await smtpClient.AuthenticateAsync(userCredentials);
             }
             catch

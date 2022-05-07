@@ -15,11 +15,11 @@ namespace Outlook.Service
 
         private const string ImapHost = "outlook.office365.com";
         private const int ImapPort = 993;
-        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.SslOnConnect;
+        private const SecureSocketOptions Pop3SecureOption = SecureSocketOptions.Auto;
 
         private const string SmtpHost = "smtp-mail.outlook.com";
         private const int SmtpPort = 587;
-        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.StartTls;
+        private const SecureSocketOptions SmtpSecureOption = SecureSocketOptions.Auto;
 
         private NetworkCredential? userCredentials;
 
