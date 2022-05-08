@@ -9,6 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\add contact.png" />
+    <None Remove="Resources\address book.png" />
+    <None Remove="Resources\attachment.png" />
+    <None Remove="Resources\close-window.png" />
+    <None Remove="Resources\edit contact.png" />
+    <None Remove="Resources\fox.png" />
+    <None Remove="Resources\login.png" />
+    <None Remove="Resources\maximize.png" />
+    <None Remove="Resources\minimize.png" />
+    <None Remove="Resources\readed.png" />
+    <None Remove="Resources\remove contact.png" />
+    <None Remove="Resources\search.png" />
+    <None Remove="Resources\send.png" />
+    <None Remove="Resources\template.png" />
+    <None Remove="Resources\unread.png" />
+    <None Remove="Resources\web-page.png" />
+    <None Remove="Resources\with attachment.png" />
+    <None Remove="Resources\write.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="App\MailFoxApp.xaml" />
   </ItemGroup>
 
@@ -22,6 +43,63 @@
     <ProjectReference Include="..\MFData\MFData.csproj" />
     <ProjectReference Include="..\Outlook\Outlook.csproj" />
     <ProjectReference Include="..\Security\Security.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\add contact.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\address book.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\attachment.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\close-window.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\edit contact.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fox.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\login.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\maximize.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\minimize.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\readed.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\remove contact.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\send.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\template.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\unread.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\web-page.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\with attachment.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\write.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
