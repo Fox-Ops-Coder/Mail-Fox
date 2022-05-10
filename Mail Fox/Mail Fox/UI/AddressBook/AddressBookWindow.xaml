@@ -1,36 +1,68 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MailFox.UI.AddressBook" x:Name="addressBookWindow" x:Class="MailFox.UI.AddressBook.AddressBookWindow"
+        xmlns:local="clr-namespace:MailFox.UI.AddressBook"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av"
+        x:Name="addressBookWindow" x:Class="MailFox.UI.AddressBook.AddressBookWindow"
         x:ClassModifier="internal"
-        mc:Ignorable="d"
-        Title="AddressBookWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneWay}">
+        Title="Книга контактов" Uid="{Binding Guid, Mode=OneWay}" Style="{StaticResource WindowStyle}" WindowState="{Binding WindowState, Mode=OneWay}">
     <Window.DataContext>
-        <local:AddressBookContext />
+        <local:AddressBookContext/>
     </Window.DataContext>
     <Grid x:Name="addressBookGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*" />
-            <RowDefinition Height="195*" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Button Content="Добавить контакт" Margin="10,10,600,10" Command="{Binding AddContactCommand, Mode=OneWay}" />
-        <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Contacts}" SelectedIndex="0">
+        <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Контакты" VerticalAlignment="Center" FontSize="28"/>
+            <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
+                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+            </Button>
+            <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+            </Button>
+            <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+            </Button>
+        </Grid>
+        <Button Grid.Row="1" HorizontalAlignment="Left" Command="{Binding AddContactCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png"/>
+                <TextBlock Grid.Column="1" Text="Добавить контакт" VerticalAlignment="Center" FontSize="24"/>
+            </Grid>
+        </Button>
+        <ListView x:Name="contactList" Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding Contacts, Mode=OneWay}" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Height="60">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Padding="25,10,25,10" Text="{Binding Contact.ContactEmail}" />
-                        <TextBlock Grid.Column="1" Padding="25,10,25,10" Text="{Binding Contact.ContactName}" />
-                        <Button Content="Удалить" Grid.Column="2" Padding="25,10,25,10" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=Contact.ContactName}" VerticalAlignment="Center" FontSize="24" Margin="10,0,10,0"/>
+                        <TextBlock Text="{Binding Path=Contact.ContactEmail}" Grid.Column="1" FontSize="24" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                        <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}">
+                            <Image Source="/Resources/edit contact.png"/>
+                        </Button>
+                        <Button Grid.Column="3" Style="{DynamicResource AppBarButtons}" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding}">
+                            <Image Source="/Resources/remove contact.png"/>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

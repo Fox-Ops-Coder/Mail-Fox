@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace MailFox.UI.AddressBook.Add
 {
@@ -11,5 +12,9 @@ namespace MailFox.UI.AddressBook.Add
         {
             InitializeComponent();
         }
+
+        private void Drag(object sender, MouseButtonEventArgs e) =>
+            DragMove();
+
     }
 }

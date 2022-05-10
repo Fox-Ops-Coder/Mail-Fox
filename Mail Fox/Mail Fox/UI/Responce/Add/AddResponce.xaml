@@ -1,19 +1,19 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:MailFox.UI.Responce"
-        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Name="responceWindow" x:Class="MailFox.UI.Responce.ResponceWindow"
-        x:ClassModifier="internal"
-        Title="ResponceWindow" Uid="{Binding Guid, Mode=OneWay}" WindowState="{Binding WindowState, Mode=OneWay}" Style="{StaticResource WindowStyle}">
+        xmlns:local="clr-namespace:MailFox.UI.Responce.Add"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="av" x:Class="MailFox.UI.Responce.Add.AddResponce"
+        Title="AddResponce" Style="{StaticResource ContactWindowStyle}" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
-        <local:ResponceContext />
+        <local:AddResponceContext/>
     </Window.DataContext>
-    <Grid x:Name="responceGrid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="50"/>
             <RowDefinition/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Шаблоны сообщений"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Новый шаблон"/>
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
                 <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
             </Button>
@@ -34,16 +34,8 @@
                 <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
             </Button>
         </Grid>
-        <ListView Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0"/>
-        <Button Grid.Row="1" HorizontalAlignment="Left" Style="{DynamicResource AppBarButtons}" Command="{Binding AddTemplateCommand, Mode=OneWay}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image Source="/Resources/template.png" Style="{DynamicResource IconStyle}"/>
-                <TextBlock Text="Добавить шаблон" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="0,0,10,0"/>
-            </Grid>
-        </Button>
+        <TextBox Grid.Row="1" Text="{Binding ResponceText}" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" TextWrapping="Wrap"/>
+        <Button Grid.Row="2" Content="Сохранить" Margin="250,10,250,10" FontSize="18" Command="{Binding SaveCommand, Mode=OneWay}"/>
+
     </Grid>
 </Window>

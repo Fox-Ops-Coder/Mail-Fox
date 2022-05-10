@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace MailFox.UI.Responce
 {
@@ -11,5 +12,8 @@ namespace MailFox.UI.Responce
         {
             InitializeComponent();
         }
+
+        private void Drag(object sender, MouseButtonEventArgs e) =>
+            DragMove();
     }
 }

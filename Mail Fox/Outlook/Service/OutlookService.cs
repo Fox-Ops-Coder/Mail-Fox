@@ -1,12 +1,15 @@
 ﻿using Mailing.Services;
+using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Security;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Security;
 using System.Threading.Tasks;
+using IMailService = Mailing.Services.IMailService;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace Outlook.Service
@@ -95,6 +98,33 @@ namespace Outlook.Service
             {
                 return err.Message;
             }
+        }
+
+        public async Task<IEnumerable<IMessageSummary>?> GetMessagesAsync()
+        {
+            IMailFolder inbox = imapClient.Inbox;
+            IEnumerable<IMessageSummary>? summaries = null;
+
+            try
+            {
+                int count = 15;
+
+                await inbox.OpenAsync(FolderAccess.ReadOnly);
+
+                List<int> ids = new();
+
+                for (int i = inbox.Count - 1; i >= 0 && ids.Count < count; --i)
+                    ids.Add(i);
+
+                summaries = await inbox.FetchAsync(ids, MessageSummaryItems.BodyStructure |
+                    MessageSummaryItems.Envelope | MessageSummaryItems.Flags);
+            }
+            finally
+            {
+                await inbox.CloseAsync();
+            }
+
+            return summaries;
         }
     }
 }

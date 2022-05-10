@@ -3,35 +3,111 @@ using Common.UICommand;
 using MailFox.UI.AddressBook;
 using MailFox.UI.Context;
 using MailFox.UI.Login;
+using MailFox.UI.MailBox.Adapters;
 using MailFox.UI.Mails;
+using MailFox.UI.Responce;
 using Mailing.ServiceManager;
 using Mailing.Services;
+using MailKit;
 using MFData.Core;
 using MFData.Entities;
 using Ninject;
 using Security.Service;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using IMailService = Mailing.Services.IMailService;
 
 namespace MailFox.UI.MailBox
 {
-    internal sealed class MailBoxContext : ContextBase
+    internal sealed class MailBoxContext : AppBarContext 
     {
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
 
-        private readonly ICommand writeMail;
-        public ICommand WriteMail => writeMail;
+        private readonly ICommand logoutCommand;
+        public ICommand LogoutCommand => logoutCommand;
+
+        private readonly ICommand writeEmailCommand;
+        public ICommand WriteEmailCommand => writeEmailCommand;
 
         private readonly ICommand openAddressBookCommand;
         public ICommand OpenAddressBookCommand => openAddressBookCommand;
 
+        private readonly ICommand openTemplates;
+        public ICommand OpenTemplates => openTemplates;
+
+        private readonly ObservableCollection<MailServiceAdapter> mailServices;
+        public ObservableCollection<MailServiceAdapter> MailServices => mailServices;
+
+        private readonly ObservableCollection<MessageAdapter> messages;
+        public ObservableCollection<MessageAdapter> Messages => messages;
+
+        private MailServiceAdapter? selectedMailService;
+        public MailServiceAdapter? SelectedMailService
+        {
+            get => selectedMailService;
+
+            set
+            {
+                selectedMailService = value;
+                LoadMessages();
+            }
+        }
+
+        private async void LoadMessages()
+        {
+            if (selectedMailService != null)
+            {
+                messages.Clear();
+
+                IEnumerable<IMessageSummary>? summaries =
+                    await selectedMailService.MailService.GetMessagesAsync();
+
+                if (summaries != null)
+                {
+                    foreach (IMessageSummary message in summaries)
+                        messages.Add(new(message));
+                }
+            }
+        }
+
+        private async void LogIn()
+        {
+            IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
+            ISecurityService securityService = kernel.Get<ISecurityService>();
+            IMailServiceManager mailServiceManager = kernel.Get<IMailServiceManager>();
+
+            IEnumerable<IMailServiceBuilder> mailServiceBuilders = kernel.GetAll<IMailServiceBuilder>();
+            IEnumerable<UserEmail> userEmails = await mailFoxDatabase.GetUserEmailsAsync();
+
+            foreach (UserEmail userEmail in userEmails)
+            {
+                IMailServiceBuilder mailServiceBuilder = mailServiceBuilders
+                    .Where(service => service.ServiceName == userEmail.Service).First();
+
+                IMailService? mailService = await mailServiceBuilder
+                    .CreateMailService(userEmail.Email, securityService.DecodeString(userEmail.Password));
+
+                if (mailService != null)
+                    mailServiceManager.AddService(mailService);
+            }
+        }
+
         public MailBoxContext()
         {
-            IWindowManager windowManager = kernel.Get<IWindowManager>();
             ISecurityService securityService = kernel.Get<ISecurityService>();
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
             IMailServiceManager serviceManager = kernel.Get<IMailServiceManager>();
+
+            IMailServiceManager mailServiceManager = kernel.Get<IMailServiceManager>();
 
             loginCommand = new Command(async obj =>
             {
@@ -41,18 +117,12 @@ namespace MailFox.UI.MailBox
                 {
                     IMailService? mailService = added.Item2 as IMailService;
 
-#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
-#pragma warning disable CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
-#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
                     UserEmail userEmail = new()
                     {
                         Email = mailService.Email,
                         Service = mailService.Service,
                         Password = securityService.EncodeString(mailService.Password),
                     };
-#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
-#pragma warning restore CS8601 // Возможно, назначение-ссылка, допускающее значение NULL.
-#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
 
                     await mailFoxDatabase.AddUserEmailAsync(userEmail);
                     serviceManager.AddService(mailService);
@@ -65,11 +135,35 @@ namespace MailFox.UI.MailBox
                 }
             });
 
-            writeMail = new Command(obj =>
-            windowManager.ShowDialog(new SendMailWindow()));
+            logoutCommand = new Command(async obj =>
+            {
+                if (obj is MailServiceAdapter mailServiceAdapter)
+                {
+                    UserEmail userEmail = (await mailFoxDatabase.GetUserEmailsAsync())
+                    .Where(email => email.Email == mailServiceAdapter.MailService.Email).First();
+
+                    await mailServiceAdapter.MailService.DisconnectAsync();
+                    await mailFoxDatabase.RemoveUserEmailAsync(userEmail);
+
+                    mailServices.Remove(mailServiceAdapter);
+                }
+            });
+
+            mailServices = new();
+            mailServiceManager.OnAdd += new IMailServiceManager.MailServiceHandler(service => mailServices.Add(new(service, logoutCommand)));
+
+            messages = new();
+
+            writeEmailCommand = new Command(obj =>
+            windowManager.ShowWindow(new SendMailWindow()));
 
             openAddressBookCommand = new Command(obj =>
             windowManager.ShowWindow(new AddressBookWindow()));
+
+            openTemplates = new Command(obj =>
+            windowManager.ShowWindow(new ResponceWindow()));
+
+            LogIn();
         }
     }
 }

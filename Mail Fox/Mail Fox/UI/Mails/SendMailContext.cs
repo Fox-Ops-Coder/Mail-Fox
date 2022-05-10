@@ -2,6 +2,7 @@
 using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Mails.Adapters;
+using MailFox.UI.Mails.Attachment;
 using Mailing.ServiceManager;
 using Mailing.Services;
 using MFData.Core;
@@ -16,7 +17,7 @@ using System.Windows.Input;
 
 namespace MailFox.UI.Mails
 {
-    internal sealed class SendMailContext : ContextBase
+    internal sealed class SendMailContext : AppBarContext
     {
         private readonly ObservableCollection<MailServiceAdapter> mailServices;
         public ObservableCollection<MailServiceAdapter> MailServices => mailServices;
@@ -45,6 +46,11 @@ namespace MailFox.UI.Mails
         private readonly ICommand sendCommand;
         public ICommand SendCommand => sendCommand;
 
+        private readonly ICommand attachmentCommand;
+        public ICommand AttachmentCommand => attachmentCommand;
+
+        private ObservableCollection<AttachmentAdapter> attachments;
+
         private static async void GetContacts(IMFCore mailFoxDatabase,
             ObservableCollection<ContactAdapter> contacts)
         {
@@ -65,7 +71,6 @@ namespace MailFox.UI.Mails
 
         public SendMailContext()
         {
-            IWindowManager windowManager = kernel.Get<IWindowManager>();
             IMailServiceManager mailServiceManager = kernel.Get<IMailServiceManager>();
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 
@@ -81,6 +86,8 @@ namespace MailFox.UI.Mails
             selectedMailService = null;
             selectedContact = null;
 
+            attachments = new();
+
             sendCommand = new Command(async obj =>
             {
                 if (selectedMailService != null && selectedContact != null)
@@ -89,7 +96,14 @@ namespace MailFox.UI.Mails
                     message.Sender = new("???", selectedMailService.MailService.Email);
                     message.To.Add(InternetAddress.Parse(selectedContact.Contact.ContactEmail));
                     message.Subject = mailTheme;
-                    message.Body = new TextPart() { Text = mailText };
+
+                    BodyBuilder builder = new();
+                    builder.TextBody = mailText;
+                    
+                    foreach(AttachmentAdapter attachment in attachments)
+                        builder.Attachments.Add(attachment.Attachment);
+
+                    message.Body = builder.ToMessageBody();
 
                     string result = await selectedMailService.MailService.SendMessageAsync(message);
 
@@ -97,6 +111,9 @@ namespace MailFox.UI.Mails
                     windowManager.CloseWindow(this);
                 }
             });
+
+            attachmentCommand = new Command(obj =>
+            windowManager.ShowDialog(new AttachmentWindow(attachments)));
         }
     }
 }

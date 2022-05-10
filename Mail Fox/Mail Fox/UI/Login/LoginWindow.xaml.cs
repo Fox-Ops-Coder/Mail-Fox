@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace MailFox.UI.Login
 {
@@ -12,5 +13,8 @@ namespace MailFox.UI.Login
             InitializeComponent();
             DataContext = new LoginContext(loginFrame.NavigationService);
         }
+
+        private void Drag(object sender, MouseButtonEventArgs e) =>
+            DragMove();
     }
 }

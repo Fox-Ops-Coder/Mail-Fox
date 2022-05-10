@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace MailFox.UI.AddressBook
 {
-    internal sealed class AddressBookContext : ContextBase
+    internal sealed class AddressBookContext : AppBarContext
     {
         private readonly ObservableCollection<ContactAdapter> contacts;
         public ObservableCollection<ContactAdapter> Contacts => contacts;

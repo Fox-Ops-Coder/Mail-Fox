@@ -1,36 +1,116 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:MailFox.UI.MailBox" x:Name="mailBoxWindow" x:Class="MailFox.UI.MailBox.MailBoxWindow"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:MailFox.UI.MailBox" mc:Ignorable="av"
+        x:Name="mailBoxWindow" x:Class="MailFox.UI.MailBox.MailBoxWindow"
         x:ClassModifier="internal"
-        mc:Ignorable="d"
-        d:DesignHeight="450" d:DesignWidth="800"
-        Title="MailBoxWindow" Uid="{Binding Guid, Mode=OneWay}">
+        Title="Mail Fox" Style="{StaticResource WindowStyle}" Uid="{Binding Guid, Mode=OneTime}" WindowState="{Binding WindowState, Mode=OneWay}">
     <Window.DataContext>
-        <local:MailBoxContext />
+        <local:MailBoxContext/>
     </Window.DataContext>
     <Grid x:Name="mailBoxGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*" />
-            <RowDefinition Height="195*" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="21*" />
-            <ColumnDefinition Width="59*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2">
+        <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="addBoxButton" Content="Добавить почтовый ящик" Command="{Binding LoginCommand, Mode=OneWay}" Margin="25,10,25,10" />
-            <Button Grid.Column="1" Margin="25,10,25,10" Content="Написать письмо" Command="{Binding WriteMail, Mode=OneWay}" />
-            <Button Grid.Column="2" Margin="25,10,25,10" Content="Адресная книга" Command="{Binding OpenAddressBookCommand, Mode=OneWay}" />
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Mail Fox" VerticalAlignment="Center" FontSize="28"/>
+            <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
+                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+            </Button>
+            <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+            </Button>
+            <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+            </Button>
         </Grid>
-        <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Email/EmailPage.xaml" />
-        <Frame Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Source="/UI/MailBox/Message/MessagePage.xaml" />
+        <Grid x:Name="mailFoxBarGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="loginButton" Style="{StaticResource AppBarButtons}" Command="{Binding LoginCommand, Mode=OneWay}">
+                <Image x:Name="loginIcon" Source="/Resources/login.png"/>
+            </Button>
+            <Button x:Name="writeMessageButton" Style="{StaticResource AppBarButtons}" Grid.Column="1" Command="{Binding WriteEmailCommand, Mode=OneWay}">
+                <Image x:Name="writeMessageIcon" Source="/Resources/write.png"/>
+            </Button>
+            <Button x:Name="contactBookButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding OpenAddressBookCommand, Mode=OneWay}">
+                <Image x:Name="contactBookIcon" Source="/Resources/address book.png"/>
+            </Button>
+            <Button x:Name="templateButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding OpenTemplates, Mode=OneWay}">
+                <Image x:Name="templateIcon" Source="/Resources/template.png"/>
+            </Button>
+            <Button x:Name="searchButton" Style="{StaticResource AppBarButtons}" Grid.Column="4">
+                <Image x:Name="searchIcon" Source="/Resources/search.png"/>
+            </Button>
+            <Button x:Name="withAttachmentButton" Style="{StaticResource AppBarButtons}" Grid.Column="5">
+                <Image x:Name="withAttachmentIcon" Source="/Resources/with attachment.png"/>
+            </Button>
+            <TextBox x:Name="searchText" Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" Margin="5,0,5,0" Background="#FFE8E4E4"/>
+        </Grid>
+        <Grid x:Name="mailFoxAppGrid" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="170" Width="*"/>
+                <ColumnDefinition Width="5" MaxWidth="5" MinWidth="5"/>
+                <ColumnDefinition MinWidth="300" Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedMailService}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=MailService.Email}" FontSize="22" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                            <Button Grid.Column="1" Command="{Binding LogoutCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" Style="{DynamicResource AppBarButtons}">
+                                <Image Source="/Resources/logout.png" Style="{DynamicResource IconStyle}"/>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <GridSplitter x:Name="splitter" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext"/>
+            <ListBox x:Name="messages" Grid.Column="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Messages, Mode=OneWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" FontSize="24" Text="{Binding Summary}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                            <Button Style="{DynamicResource AppBarButtons}" Grid.Column="1" Visibility="{Binding WithAttachment}">
+                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/with attachment.png"/>
+                            </Button>
+                            <Button Style="{DynamicResource AppBarButtons}" Grid.Column="2">
+                                <Image Style="{DynamicResource IconStyle}" Source="{Binding ReadedIcon}"/>
+                            </Button>
+                            <Button Style="{DynamicResource AppBarButtons}" Grid.Column="3">
+                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/delete.png"/>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Window>

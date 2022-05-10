@@ -1,6 +1,7 @@
 ﻿using Common.AppService.Manager;
 using Common.UICommand;
 using MailFox.UI.Context;
+using MailFox.UI.Responce.Add;
 using MFData.Core;
 using MFData.Entities;
 using Ninject;
@@ -8,42 +9,15 @@ using System.Windows.Input;
 
 namespace MailFox.UI.Responce
 {
-    internal sealed class ResponceContext : ContextBase
+    internal sealed class ResponceContext : AppBarContext
     {
-        private readonly ICommand saveCommand;
-        public ICommand SaveCommand => saveCommand;
-
-        private string responceText;
-
-        public string ResponceText
-        {
-            get => responceText;
-            set => responceText = value;
-        }
+        private readonly ICommand addTemplateCommand;
+        public ICommand AddTemplateCommand => addTemplateCommand;
 
         public ResponceContext()
         {
-            responceText = string.Empty;
-
-            IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
-            IWindowManager windowManager = kernel.Get<IWindowManager>();
-
-            saveCommand = new Command(async obj =>
-            {
-                switch (string.IsNullOrEmpty(responceText))
-                {
-                    case true:
-                        windowManager.ShowMessage(this, "Шаблон сообщения не можут быть пустым");
-                        break;
-
-                    case false:
-                        Blank newBlank = new() { BlankText = responceText };
-                        await mailFoxDatabase.AddBlankAsync(newBlank);
-                        windowManager.ShowMessage(this, "Заготовка сообщения сохранена");
-                        windowManager.CloseWindow(this);
-                        break;
-                }
-            });
+            addTemplateCommand = new Command(obj =>
+            windowManager.ShowDialog(new AddResponce()));
         }
     }
 }

@@ -7,10 +7,9 @@ using System.Windows.Navigation;
 
 namespace MailFox.UI.Login
 {
-    internal sealed class LoginContext : ContextBase, IManagable, INavigator, IResult
+    internal sealed class LoginContext : AppBarContext, IManagable, INavigator, IResult
     {
         private readonly NavigationService navigationService;
-        private readonly IWindowManager windowManager;
 
         public object? closeArg;
         public object? Result => closeArg;
@@ -18,7 +17,6 @@ namespace MailFox.UI.Login
         public LoginContext(NavigationService navigationService)
         {
             this.navigationService = navigationService;
-            windowManager = kernel.Get<IWindowManager>();
 
             navigationService.Navigate(new ServicePage(this, this));
         }

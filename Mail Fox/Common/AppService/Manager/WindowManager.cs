@@ -27,7 +27,9 @@ namespace Common.AppService.Manager
 
             target?.Dispatcher.Invoke(() =>
             {
-                target.DialogResult = dialogResult;
+                if (dialogResult != null)
+                    target.DialogResult = dialogResult;
+
                 target.Close();
             });
         }
@@ -53,5 +55,19 @@ namespace Common.AppService.Manager
         }
 
         public void ShowWindow(Window window) => window.Show();
+
+        public void HideWindow(IWindow window)
+        {
+            Window? target = FoundWindow(window);
+
+            target?.Dispatcher.Invoke(() => target.WindowState = WindowState.Minimized);
+        }
+
+        public void ChangeWindowState(IWindow window, bool fullscreen)
+        {
+            Window? target = FoundWindow(window);
+
+            target?.Dispatcher.Invoke(() => target.WindowState = fullscreen ? WindowState.Normal : WindowState.Maximized);
+        }
     }
 }

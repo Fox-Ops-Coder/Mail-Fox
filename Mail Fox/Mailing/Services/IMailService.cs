@@ -1,4 +1,6 @@
-﻿using MimeKit;
+﻿using MailKit;
+using MimeKit;
+using System.Collections.Generic;
 using System.Security;
 using System.Threading.Tasks;
 
@@ -23,5 +25,7 @@ namespace Mailing.Services
         Task<bool> AuthorizeAsync(string email, SecureString password);
 
         Task<string> SendMessageAsync(MimeMessage mailMessage);
+
+        Task<IEnumerable<IMessageSummary>?> GetMessagesAsync();
     }
 }

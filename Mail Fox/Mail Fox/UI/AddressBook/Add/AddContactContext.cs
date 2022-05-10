@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace MailFox.UI.AddressBook.Add
 {
-    internal sealed class AddContactContext : ContextBase, IResult
+    internal sealed class AddContactContext : AppBarContext, IResult
     {
         private readonly ICommand saveCommand;
         public ICommand SaveCommand => saveCommand;
@@ -28,7 +28,6 @@ namespace MailFox.UI.AddressBook.Add
             emailAddress = string.Empty;
             contactName = string.Empty;
 
-            IWindowManager windowManager = kernel.Get<IWindowManager>();
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 
             saveCommand = new Command(async obj =>

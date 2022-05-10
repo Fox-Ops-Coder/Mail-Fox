@@ -11,11 +11,15 @@
   <ItemGroup>
     <None Remove="Resources\add contact.png" />
     <None Remove="Resources\address book.png" />
+    <None Remove="Resources\adelete.png" />
     <None Remove="Resources\attachment.png" />
     <None Remove="Resources\close-window.png" />
+    <None Remove="Resources\delete.png" />
     <None Remove="Resources\edit contact.png" />
     <None Remove="Resources\fox.png" />
+    <None Remove="Resources\hide.png" />
     <None Remove="Resources\login.png" />
+    <None Remove="Resources\logout.png" />
     <None Remove="Resources\maximize.png" />
     <None Remove="Resources\minimize.png" />
     <None Remove="Resources\readed.png" />
@@ -24,7 +28,6 @@
     <None Remove="Resources\send.png" />
     <None Remove="Resources\template.png" />
     <None Remove="Resources\unread.png" />
-    <None Remove="Resources\web-page.png" />
     <None Remove="Resources\with attachment.png" />
     <None Remove="Resources\write.png" />
   </ItemGroup>
@@ -52,12 +55,14 @@
     <Resource Include="Resources\address book.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\adelete.png" />
     <Resource Include="Resources\attachment.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\close-window.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\delete.png" />
     <Resource Include="Resources\edit contact.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -67,6 +72,7 @@
     <Resource Include="Resources\login.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\logout.png" />
     <Resource Include="Resources\maximize.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -91,7 +97,7 @@
     <Resource Include="Resources\unread.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\web-page.png">
+    <Resource Include="Resources\hide.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\with attachment.png">

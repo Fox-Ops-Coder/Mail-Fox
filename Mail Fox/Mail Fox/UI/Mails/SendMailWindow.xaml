@@ -1,34 +1,64 @@
-﻿<Window x:Name="sendMailWindow" x:Class="MailFox.UI.Mails.SendMailWindow"
-        x:ClassModifier="internal"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailFox.UI.Mails"
-        mc:Ignorable="d"
-        Title="SendMailWindow" Height="450" Width="800">
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Name="sendMailWindow" x:Class="MailFox.UI.Mails.SendMailWindow"
+        x:ClassModifier="internal"
+        Title="SendMailWindow" Style="{StaticResource WindowStyle}" WindowState="{Binding WindowState, Mode=OneWay}" Uid="{Binding Guid, Mode=OneWay}">
     <Window.DataContext>
         <local:SendMailContext />
     </Window.DataContext>
     <Grid x:Name="sendMailGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="fromTitle" TextWrapping="Wrap" Text="Кому:" />
-        <ComboBox x:Name="toBox" Grid.Column="1" ItemsSource="{Binding Contacts}" SelectedIndex="0" SelectedItem="{Binding SelectedContact}" />
-        <TextBlock x:Name="toTitle" TextWrapping="Wrap" Text="От кого:" Grid.Row="1" />
-        <ComboBox x:Name="fromBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding MailServices}" SelectedIndex="0" SelectedItem="{Binding SelectedMailService}" />
-        <TextBlock x:Name="themeTitle" Grid.Row="2" TextWrapping="Wrap" Text="Тема:" />
-        <TextBox x:Name="themeBox" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="{Binding MailTheme}" />
-        <TextBox x:Name="messageBox" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{Binding MailText}" />
-        <Button x:Name="sendButton" Grid.Row="4" Content="Отправить" Grid.ColumnSpan="2" Margin="300,20,300,20" Command="{Binding SendCommand, Mode=OneWay}" />
+        <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Написать письмо"/>
+            <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
+                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+            </Button>
+            <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+            </Button>
+            <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneWay}">
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{DynamicResource AppBarButtons}" Command="{Binding SendCommand, Mode=OneWay}">
+                <Image Source="/Resources/send.png"/>
+            </Button>
+            <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding AttachmentCommand, Mode=OneWay}">
+                <Image Source="/Resources/attachment.png"/>
+            </Button>
+        </Grid>
+        <TextBox Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" FontSize="18" Text="{Binding MailText}"/>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Text="От:"/>
+        <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Кому:" FontSize="20" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" TextWrapping="Wrap" FontSize="20" Text="Тема:" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" FontSize="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" SelectedItem="{Binding SelectedMailService}"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,10,0" SelectedIndex="0" ItemsSource="{Binding Contacts, Mode=OneWay}" SelectedItem="{Binding SelectedContact}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Text="{Binding MailTheme}"/>
     </Grid>
 </Window>

@@ -14,16 +14,19 @@
     <Compile Update="UI\Login\Pages\ServicePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\MailBox\Email\EmailPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\MailBox\MailBoxWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\MailBox\Message\MessagePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Mails\Attachment\AttachmentWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Mails\SendMailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Responce\Add\AddResponce.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Responce\ResponceWindow.xaml.cs">
@@ -31,6 +34,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Themes\AppTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\AddressBook\AddressBookWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -43,16 +49,19 @@
     <Page Update="UI\Login\Pages\ServicePage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\MailBox\Email\EmailPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="UI\MailBox\MailBoxWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\MailBox\Message\MessagePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UI\Mails\Attachment\AttachmentWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\Mails\SendMailWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Responce\Add\AddResponce.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Responce\ResponceWindow.xaml">

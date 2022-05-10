@@ -15,5 +15,9 @@ namespace Common.AppService.Manager
         Tuple<bool?, object?> ShowDialogWithResult(Window window);
 
         void ShowWindow(Window window);
+
+        void HideWindow(IWindow window);
+
+        void ChangeWindowState(IWindow window, bool fullscreen);
     }
 }
