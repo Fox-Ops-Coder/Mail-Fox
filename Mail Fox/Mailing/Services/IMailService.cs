@@ -26,6 +26,8 @@ namespace Mailing.Services
 
         Task<string> SendMessageAsync(MimeMessage mailMessage);
 
-        Task<IEnumerable<IMessageSummary>?> GetMessagesAsync();
+        Task<IEnumerable<IMessageSummary>?> GetMessagesAsync(IMailFolder folder);
+
+        Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync();
     }
 }

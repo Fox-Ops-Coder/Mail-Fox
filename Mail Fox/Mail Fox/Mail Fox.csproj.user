@@ -26,6 +26,9 @@
     <Compile Update="UI\Mails\SendMailWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\ReadMails\ReadMailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Responce\Add\AddResponce.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +62,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Mails\SendMailWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\ReadMails\ReadMailWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Responce\Add\AddResponce.xaml">

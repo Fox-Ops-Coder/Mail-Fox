@@ -66,22 +66,37 @@
         </Grid>
         <Grid x:Name="mailFoxAppGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="170" Width="*"/>
+                <ColumnDefinition MinWidth="250" Width="*"/>
                 <ColumnDefinition Width="5" MaxWidth="5" MinWidth="5"/>
                 <ColumnDefinition MinWidth="300" Width="10*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedMailService}">
+            <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="45"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Path=MailService.Email}" FontSize="22" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"/>
-                            <Button Grid.Column="1" Command="{Binding LogoutCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" Style="{DynamicResource AppBarButtons}">
-                                <Image Source="/Resources/logout.png" Style="{DynamicResource IconStyle}"/>
+                            <Button Style="{DynamicResource AppBarButtons}" Command="{Binding OpenFoldersCommand}">
+                                <Image Style="{DynamicResource IconStyle}" Source="{Binding FolderImage}" Margin="4,4,4,4"/>
                             </Button>
+                            <TextBlock Text="{Binding Path=MailService.Email}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="10,15,60,15"/>
+                            <Button Grid.Column="2" Command="{Binding LogoutCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" Style="{DynamicResource AppBarButtons}" Margin="5,5,5,5">
+                                <Image Source="/Resources/logout.png" Style="{DynamicResource IconStyle}" Margin="0,0,0,0"/>
+                            </Button>
+                            <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Folders}" Visibility="{Binding FoldersVisible}" SelectedItem="{Binding SelectedFolder}" HorizontalContentAlignment="Stretch">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding FolderName}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

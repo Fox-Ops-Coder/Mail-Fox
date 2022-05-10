@@ -4,6 +4,7 @@ using MailKit.Net.Imap;
 using MailKit.Security;
 using MimeKit;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Security;
@@ -87,31 +88,40 @@ namespace MailRu.Service
             return Authentificated;
         }
 
-        public async Task<IEnumerable<IMessageSummary>?> GetMessagesAsync()
+        public async Task<IEnumerable<IMessageSummary>?> GetMessagesAsync(IMailFolder folder)
         {
-            IMailFolder inbox = imapClient.Inbox;
             IEnumerable<IMessageSummary>? summaries = null;
 
             try
             {
                 int count = 15;
 
-                await inbox.OpenAsync(FolderAccess.ReadOnly);
+                await folder.OpenAsync(FolderAccess.ReadOnly);
 
                 List<int> ids = new();
 
-                for (int i = inbox.Count - 1; i >= 0 && ids.Count < count; --i)
+                for (int i = folder.Count - 1; i >= 0 && ids.Count < count; --i)
                     ids.Add(i);
 
-                summaries = await inbox.FetchAsync(ids, MessageSummaryItems.BodyStructure |
+                summaries = await folder.FetchAsync(ids, MessageSummaryItems.BodyStructure |
                     MessageSummaryItems.Envelope | MessageSummaryItems.Flags);
             }
             finally
             {
-                await inbox.CloseAsync();
+                await folder.CloseAsync();
             }
 
             return summaries;
+        }
+
+        public async Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync()
+        {
+            List<IEnumerable<IMailFolder>> folders = new();
+
+            foreach (FolderNamespace @namespace in imapClient.PersonalNamespaces)
+                folders.Add(await imapClient.GetFoldersAsync(@namespace));
+
+            return folders;
         }
 
         public async Task<string> SendMessageAsync(MimeMessage mailMessage)

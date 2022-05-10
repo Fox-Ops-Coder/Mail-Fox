@@ -50,35 +50,6 @@ namespace MailFox.UI.MailBox
         private readonly ObservableCollection<MessageAdapter> messages;
         public ObservableCollection<MessageAdapter> Messages => messages;
 
-        private MailServiceAdapter? selectedMailService;
-        public MailServiceAdapter? SelectedMailService
-        {
-            get => selectedMailService;
-
-            set
-            {
-                selectedMailService = value;
-                LoadMessages();
-            }
-        }
-
-        private async void LoadMessages()
-        {
-            if (selectedMailService != null)
-            {
-                messages.Clear();
-
-                IEnumerable<IMessageSummary>? summaries =
-                    await selectedMailService.MailService.GetMessagesAsync();
-
-                if (summaries != null)
-                {
-                    foreach (IMessageSummary message in summaries)
-                        messages.Add(new(message));
-                }
-            }
-        }
-
         private async void LogIn()
         {
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
@@ -149,10 +120,10 @@ namespace MailFox.UI.MailBox
                 }
             });
 
-            mailServices = new();
-            mailServiceManager.OnAdd += new IMailServiceManager.MailServiceHandler(service => mailServices.Add(new(service, logoutCommand)));
-
             messages = new();
+            mailServices = new();
+            mailServiceManager.OnAdd += new IMailServiceManager
+                .MailServiceHandler(service => mailServices.Add(new(service, logoutCommand, messages)));
 
             writeEmailCommand = new Command(obj =>
             windowManager.ShowWindow(new SendMailWindow()));
