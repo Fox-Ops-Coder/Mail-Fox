@@ -2,7 +2,9 @@
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +15,7 @@ using IMailService = Mailing.Services.IMailService;
 
 namespace MailFox.UI.MailBox.Adapters
 {
-    internal sealed class MessageAdapter
+    internal sealed class MessageAdapter : INotifyPropertyChanged
     {
         private readonly IMessageSummary message;
         public IMessageSummary Message => message;
@@ -38,6 +40,12 @@ namespace MailFox.UI.MailBox.Adapters
             message.Envelope.Sender.ToString() +
             " " + message.Envelope.Subject;
 
+        public void Read()
+        {
+            readedIcon = new(new("pack://application:,,,/Resources/readed.png"));
+            OnPropertyChanged("ReadedIcon");
+        }
+
         public MessageAdapter(IMessageSummary message, IMailService service,
             IMailFolder folder, ICommand openMessageCommand)
         {
@@ -53,5 +61,10 @@ namespace MailFox.UI.MailBox.Adapters
 
             withAttachment = message.Attachments.Any();
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string prop = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }

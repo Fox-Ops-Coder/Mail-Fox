@@ -132,7 +132,10 @@ namespace MailFox.UI.MailBox
                     MimeMessage? message = await service.GetMessageAsync(folder, messageAdapter.Message);
 
                     if (message != null)
+                    {
+                        messageAdapter.Read();
                         windowManager.ShowWindow(new ReadMailWindow(message));
+                    }
                 }
             });
 

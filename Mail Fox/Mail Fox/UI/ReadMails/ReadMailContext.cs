@@ -1,6 +1,7 @@
 ﻿using Common.UICommand;
 using MailFox.UI.AddressBook.Add;
 using MailFox.UI.Context;
+using MailFox.UI.ReadMails.Attachment;
 using MFData.Core;
 using MimeKit;
 using Ninject;
@@ -18,6 +19,9 @@ namespace MailFox.UI.ReadMails
     {
         private readonly ICommand addContactCommand;
         public ICommand AddContactCommand => addContactCommand;
+
+        private readonly ICommand openAttachments;
+        public ICommand OpenAttachmentsCommand => openAttachments;
 
         private bool addContactVisibility;
         public Visibility AddCommandVisibility =>
@@ -64,6 +68,11 @@ namespace MailFox.UI.ReadMails
                     addContactVisibility = false;
                     OnPropertyChanged("AddCommandVisibility");
                 }
+            });
+
+            openAttachments = new Command(obj =>
+            {
+                windowManager.ShowDialog(new AttachmentWindow(message.Attachments));
             });
 
             IsUserContact(mailFoxDatabase, from).Wait();
