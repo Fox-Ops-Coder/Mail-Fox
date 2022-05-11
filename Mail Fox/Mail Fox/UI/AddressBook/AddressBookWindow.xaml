@@ -51,16 +51,14 @@
                     <Grid Height="60">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Path=Contact.ContactName}" VerticalAlignment="Center" FontSize="24" Margin="10,0,10,0"/>
-                        <TextBlock Text="{Binding Path=Contact.ContactEmail}" Grid.Column="1" FontSize="24" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                        <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}">
+                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontSize="24" Margin="10,0,10,0"/>
+                        <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding EditCommand}" CommandParameter="{Binding}">
                             <Image Source="/Resources/edit contact.png"/>
                         </Button>
-                        <Button Grid.Column="3" Style="{DynamicResource AppBarButtons}" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding}">
+                        <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding}">
                             <Image Source="/Resources/remove contact.png"/>
                         </Button>
                     </Grid>

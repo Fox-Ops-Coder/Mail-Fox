@@ -30,22 +30,22 @@ namespace MailFox.UI.Responce.Add
 
         private async Task Operation(bool isCreate, Blank? blank)
         {
-            if (blank != null)
+            IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
+
+            switch (isCreate)
             {
-                IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
+                case true:
+                    Blank newBlank = new() { BlankText = responceText };
+                    await mailFoxDatabase.AddBlankAsync(newBlank);
+                    break;
 
-                switch (isCreate)
-                {
-                    case true:
-                        Blank newBlank = new() { BlankText = responceText };
-                        await mailFoxDatabase.AddBlankAsync(newBlank);
-                        break;
-
-                    case false:
+                case false:
+                    if (blank != null)
+                    {
                         blank.BlankText = responceText;
                         await mailFoxDatabase.UpdateBlankAsync(blank);
-                        break;
-                }
+                    }
+                    break;
             }
         }
 

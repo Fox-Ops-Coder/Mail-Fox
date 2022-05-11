@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Новый контакт" VerticalAlignment="Center" FontSize="28"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="{Binding WindowTitle}" VerticalAlignment="Center" FontSize="28"/>
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
                 <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
             </Button>

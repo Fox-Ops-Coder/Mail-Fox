@@ -5,6 +5,7 @@ using MailFox.UI.Context;
 using MFData.Core;
 using MFData.Entities;
 using Ninject;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MailFox.UI.AddressBook.Add
@@ -13,6 +14,9 @@ namespace MailFox.UI.AddressBook.Add
     {
         private readonly ICommand saveCommand;
         public ICommand SaveCommand => saveCommand;
+
+        private readonly string windowTitle;
+        public string WindowTitle => windowTitle;
 
         private string emailAddress;
         public string EmailAddress { get => emailAddress; set => emailAddress = value; }
@@ -23,10 +27,55 @@ namespace MailFox.UI.AddressBook.Add
         private Contact? newContact;
         public object? Result => newContact;
 
-        public AddContactContext()
+        private async Task Operation(bool isCreate, Contact? contact, IMFCore mailFoxDatabase)
         {
-            emailAddress = string.Empty;
-            contactName = string.Empty;
+            switch(isCreate)
+            {
+                case true:
+                    newContact = new()
+                    {
+                        ContactEmail = emailAddress,
+                        ContactName = contactName
+                    };
+                    await mailFoxDatabase.AddContactAsync(newContact);
+                    break;
+
+                case false:
+                    if (contact != null)
+                    {
+                        contact.ContactEmail = emailAddress;
+                        contact.ContactName = contactName;
+
+                        await mailFoxDatabase.UpdateContactAsync(contact);
+                    }
+                    break;
+            }
+        }
+
+        public AddContactContext(bool isCreate, Contact? contact)
+        {
+            switch (isCreate)
+            {
+                case true:
+                    windowTitle = "Новый контакт";
+                    break;
+
+                case false:
+                    windowTitle = "Изменить контакт";
+                    break;
+            }
+
+            if (contact != null)
+            {
+                emailAddress = contact.ContactEmail;
+                contactName = contact.ContactName;
+            }
+            else
+            {
+                emailAddress = string.Empty;
+                contactName = string.Empty;
+            }
+
 
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 
@@ -37,16 +86,7 @@ namespace MailFox.UI.AddressBook.Add
 
                 if (emailAddressFilled && contactNameFilled)
                 {
-                    Contact contact = new()
-                    {
-                        ContactEmail = emailAddress,
-                        ContactName = contactName
-                    };
-
-                    await mailFoxDatabase.AddContactAsync(contact);
-
-                    newContact = contact;
-
+                    await Operation(isCreate, contact, mailFoxDatabase);
                     windowManager.CloseWindow(this, true);
                 }
             });

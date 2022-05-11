@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MFData.Entities;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MailFox.UI.AddressBook.Add
@@ -8,18 +9,18 @@ namespace MailFox.UI.AddressBook.Add
     /// </summary>
     internal sealed partial class AddContactWindow : Window
     {
-        public AddContactWindow()
+        public AddContactWindow(bool isCreate = true, Contact? contact = null)
         {
             InitializeComponent();
 
-            DataContext = new AddContactContext();
+            DataContext = new AddContactContext(isCreate, contact);
         }
 
         public AddContactWindow(string email)
         {
             InitializeComponent();
 
-            AddContactContext context = new();
+            AddContactContext context = new(true, null);
             context.EmailAddress = email;
 
             DataContext = context;

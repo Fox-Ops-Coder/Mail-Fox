@@ -24,17 +24,20 @@ namespace MailFox.UI.AddressBook
         private readonly ICommand addContactCommand;
         public ICommand AddContactCommand => addContactCommand;
 
+        private readonly ICommand editCommand;
+        public ICommand EditCommand => editCommand;
+
         private readonly ICommand removeContactCommand;
         public ICommand RemoveContactCommand => removeContactCommand;
 
-        private static async Task GetContacts(IMFCore mailFoxDatabase,
+        private static async void GetContacts(IMFCore mailFoxDatabase,
             ObservableCollection<ContactAdapter> contactsCollection,
-            ICommand removeCommand)
+            ICommand removeCommand, ICommand editCommand)
         {
             IEnumerable<Contact> contacts = await mailFoxDatabase.GetContactsAsync();
 
             foreach (Contact contact in contacts)
-                contactsCollection.Add(new(contact, removeCommand));
+                contactsCollection.Add(new(contact, editCommand, removeCommand));
         }
 
         public AddressBookContext()
@@ -62,15 +65,24 @@ namespace MailFox.UI.AddressBook
                 }
             });
 
+            editCommand = new Command(obj =>
+            {
+                if (obj is ContactAdapter contact)
+                {
+                    windowManager.ShowDialog(new AddContactWindow(false, contact.Contact));
+                    contact.TextChanged();
+                }
+            });
+
             addContactCommand = new Command(obj =>
             {
                 Tuple<bool?, object?> results = windowManager.ShowDialogWithResult(new AddContactWindow());
 
                 if (results.Item1.GetValueOrDefault() && results.Item2 is Contact contact)
-                    contacts.Add(new(contact, removeContactCommand));
+                    contacts.Add(new(contact, editCommand, removeContactCommand));
             });
 
-            GetContacts(mailFoxDatabase, contacts, removeContactCommand).Wait();
+            GetContacts(mailFoxDatabase, contacts, removeContactCommand, editCommand);
         }
     }
 }
