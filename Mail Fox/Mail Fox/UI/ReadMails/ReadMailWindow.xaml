@@ -8,62 +8,61 @@
         Title="ReadMailWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneTime}" Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Прочитать письмо"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Прочитать письмо" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneWay}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
         <Grid Grid.Row="1" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding OpenAttachmentsCommand}">
-                <Image Source="/Resources/attachment.png"/>
+                <Image Source="/Resources/attachment.png" />
             </Button>
         </Grid>
-        <TextBox Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap" FontSize="18" Text="{Binding MailText, Mode=OneWay}" Margin="0,10,0,0" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsReadOnly="True"/>
-        <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Text="От:"/>
-        <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Кому:" FontSize="20" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="4" TextWrapping="Wrap" FontSize="20" Text="Тема:" VerticalAlignment="Center"/>
+        <TextBox Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap" FontSize="18" Text="{Binding MailText, Mode=OneWay}" Margin="0,10,0,0" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsReadOnly="True" />
+        <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Text="От:" />
+        <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Кому:" FontSize="20" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="4" TextWrapping="Wrap" FontSize="20" Text="Тема:" VerticalAlignment="Center" />
         <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding From}"/>
+            <TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding From}" />
             <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Visibility="{Binding AddCommandVisibility}" Command="{Binding AddContactCommand}">
-                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png"/>
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png" />
             </Button>
         </Grid>
-        <TextBlock Grid.Column="1" Grid.Row="3" FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding To}"/>
-        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Text="{Binding MailTheme}"/>
-
+        <TextBlock Grid.Column="1" Grid.Row="3" FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding To}" />
+        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Text="{Binding MailTheme}" />
     </Grid>
 </Window>

@@ -1,5 +1,4 @@
-﻿using Common.AppService.Manager;
-using Common.UICommand;
+﻿using Common.UICommand;
 using MailFox.UI.AddressBook;
 using MailFox.UI.Context;
 using MailFox.UI.Login;
@@ -18,19 +17,14 @@ using Security.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using IMailService = Mailing.Services.IMailService;
 
 namespace MailFox.UI.MailBox
 {
-    internal sealed class MailBoxContext : AppBarContext 
+    internal sealed class MailBoxContext : AppBarContext
     {
         private readonly ICommand loginCommand;
         public ICommand LoginCommand => loginCommand;
@@ -60,6 +54,7 @@ namespace MailFox.UI.MailBox
         public ObservableCollection<MailServiceAdapter> MailServices => mailServices;
 
         private MailServiceAdapter? selectedService;
+
         public MailServiceAdapter? SelectedService
         {
             get => selectedService;
@@ -74,6 +69,7 @@ namespace MailFox.UI.MailBox
         public ObservableCollection<MessageAdapter> Messages => messages;
 
         private string searchText;
+
         public string SearchText
         {
             get => searchText;
@@ -84,6 +80,7 @@ namespace MailFox.UI.MailBox
         }
 
         private bool withAttachment;
+
         public bool WithAttachment
         {
             get => withAttachment;
@@ -105,7 +102,7 @@ namespace MailFox.UI.MailBox
                 if (summaries != null)
                 {
                     foreach (var summary in summaries)
-                        messages.Add(new(summary, selectedService.MailService, 
+                        messages.Add(new(summary, selectedService.MailService,
                             selectedService.SelectedFolder.Folder, openCommand, deleteCommand));
                 }
             }

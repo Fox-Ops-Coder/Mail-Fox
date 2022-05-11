@@ -1,5 +1,4 @@
-﻿using Common.AppService.Manager;
-using Common.AppService.WindowService;
+﻿using Common.AppService.WindowService;
 using Common.UICommand;
 using MailFox.UI.Context;
 using MFData.Core;
@@ -29,7 +28,7 @@ namespace MailFox.UI.AddressBook.Add
 
         private async Task Operation(bool isCreate, Contact? contact, IMFCore mailFoxDatabase)
         {
-            switch(isCreate)
+            switch (isCreate)
             {
                 case true:
                     newContact = new()
@@ -75,7 +74,6 @@ namespace MailFox.UI.AddressBook.Add
                 emailAddress = string.Empty;
                 contactName = string.Empty;
             }
-
 
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 

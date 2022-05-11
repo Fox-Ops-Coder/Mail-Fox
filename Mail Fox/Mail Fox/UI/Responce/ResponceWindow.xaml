@@ -7,28 +7,28 @@
         Title="ResponceWindow" Uid="{Binding Guid, Mode=OneWay}" WindowState="{Binding WindowState, Mode=OneWay}" Style="{StaticResource WindowStyle}">
     <Grid x:Name="responceGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Шаблоны сообщений"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Шаблоны сообщений" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}" Visibility="Hidden">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
         <ListView Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" ItemsSource="{Binding Responces}" SelectedIndex="0" HorizontalContentAlignment="Stretch">
@@ -36,20 +36,20 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Text}" VerticalAlignment="Center" FontSize="22"/>
+                        <TextBlock Text="{Binding Text}" VerticalAlignment="Center" FontSize="22" />
                         <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding FillCommand}" CommandParameter="{Binding}" Visibility="{Binding FillVisibility}">
-                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/fill.png"/>
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/fill.png" />
                         </Button>
                         <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}" Command="{Binding EditCommand}" CommandParameter="{Binding}">
-                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/edit.png"/>
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/edit.png" />
                         </Button>
                         <Button Grid.Column="3" Style="{DynamicResource AppBarButtons}" Command="{Binding DeleteCommand}" CommandParameter="{Binding}">
-                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/adelete.png"/>
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/adelete.png" />
                         </Button>
                     </Grid>
                 </DataTemplate>
@@ -58,11 +58,11 @@
         <Button Grid.Row="1" HorizontalAlignment="Left" Style="{DynamicResource AppBarButtons}" Command="{Binding AddTemplateCommand, Mode=OneWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Source="/Resources/template.png" Style="{DynamicResource IconStyle}"/>
-                <TextBlock Text="Добавить шаблон" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="0,0,10,0"/>
+                <Image Source="/Resources/template.png" Style="{DynamicResource IconStyle}" />
+                <TextBlock Text="Добавить шаблон" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="0,0,10,0" />
             </Grid>
         </Button>
     </Grid>

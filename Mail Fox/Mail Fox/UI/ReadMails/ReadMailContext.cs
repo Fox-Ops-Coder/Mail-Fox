@@ -5,10 +5,8 @@ using MailFox.UI.ReadMails.Attachment;
 using MFData.Core;
 using MimeKit;
 using Ninject;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -24,6 +22,7 @@ namespace MailFox.UI.ReadMails
         public ICommand OpenAttachmentsCommand => openAttachments;
 
         private bool addContactVisibility;
+
         public Visibility AddCommandVisibility =>
             addContactVisibility ? Visibility.Visible : Visibility.Hidden;
 

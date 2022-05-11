@@ -2,12 +2,7 @@
 using MailFox.UI.Context;
 using MailFox.UI.Mails.Adapters;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MailFox.UI.Mails.Attachment
@@ -42,7 +37,7 @@ namespace MailFox.UI.Mails.Attachment
 
                 if (fileDialog.ShowDialog() == true)
                 {
-                    foreach(string files in fileDialog.FileNames)
+                    foreach (string files in fileDialog.FileNames)
                         attachments.Add(new AttachmentAdapter(files, removeCommand));
                 }
             });

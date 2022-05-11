@@ -36,6 +36,7 @@ namespace MailFox.UI.MailBox.Adapters
         private readonly ICommand openMessageCommand;
 
         private MailFolderAdapter selectedFolder;
+
         public MailFolderAdapter SelectedFolder
         {
             get => selectedFolder;
@@ -47,6 +48,7 @@ namespace MailFox.UI.MailBox.Adapters
         }
 
         private bool foldersVisible;
+
         public Visibility FoldersVisible =>
             foldersVisible ? Visibility.Visible : Visibility.Collapsed;
 
@@ -58,7 +60,7 @@ namespace MailFox.UI.MailBox.Adapters
 
             if (messages != null)
             {
-                foreach(IMessageSummary summary in messages)
+                foreach (IMessageSummary summary in messages)
                     messagesCollection.Add(new(summary,
                         mailService, selectedFolder.Folder,
                         openMessageCommand, deleteCommand));
@@ -71,7 +73,7 @@ namespace MailFox.UI.MailBox.Adapters
                 await MailService.GetFoldersAsync();
 
             foreach (IEnumerable<IMailFolder> folder in userFolders)
-                foreach(IMailFolder f in folder)
+                foreach (IMailFolder f in folder)
                     folders.Add(new(f));
         }
 
@@ -102,7 +104,7 @@ namespace MailFox.UI.MailBox.Adapters
                 OnPropertyChanged("FoldersVisible");
                 OnPropertyChanged("FolderImage");
             });
-            
+
             GetFolders();
         }
 

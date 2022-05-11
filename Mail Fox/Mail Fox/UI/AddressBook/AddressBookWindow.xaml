@@ -7,42 +7,42 @@
         x:ClassModifier="internal"
         Title="Книга контактов" Uid="{Binding Guid, Mode=OneWay}" Style="{StaticResource WindowStyle}" WindowState="{Binding WindowState, Mode=OneWay}">
     <Window.DataContext>
-        <local:AddressBookContext/>
+        <local:AddressBookContext />
     </Window.DataContext>
     <Grid x:Name="addressBookGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Контакты" VerticalAlignment="Center" FontSize="28"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Контакты" VerticalAlignment="Center" FontSize="28" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
         <Button Grid.Row="1" HorizontalAlignment="Left" Command="{Binding AddContactCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png"/>
-                <TextBlock Grid.Column="1" Text="Добавить контакт" VerticalAlignment="Center" FontSize="24"/>
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png" />
+                <TextBlock Grid.Column="1" Text="Добавить контакт" VerticalAlignment="Center" FontSize="24" />
             </Grid>
         </Button>
         <ListView x:Name="contactList" Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding Contacts, Mode=OneWay}" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
@@ -50,16 +50,16 @@
                 <DataTemplate>
                     <Grid Height="60">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontSize="24" Margin="10,0,10,0"/>
+                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontSize="24" Margin="10,0,10,0" />
                         <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding EditCommand}" CommandParameter="{Binding}">
-                            <Image Source="/Resources/edit contact.png"/>
+                            <Image Source="/Resources/edit contact.png" />
                         </Button>
                         <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}" Command="{Binding RemoveCommand, Mode=OneWay}" CommandParameter="{Binding}">
-                            <Image Source="/Resources/remove contact.png"/>
+                            <Image Source="/Resources/remove contact.png" />
                         </Button>
                     </Grid>
                 </DataTemplate>

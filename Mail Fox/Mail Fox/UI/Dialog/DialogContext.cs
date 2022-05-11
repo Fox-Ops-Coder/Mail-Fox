@@ -1,11 +1,5 @@
-﻿using Common.AppService.Manager;
-using Common.UICommand;
+﻿using Common.UICommand;
 using MailFox.UI.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MailFox.UI.Dialog

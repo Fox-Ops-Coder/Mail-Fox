@@ -1,5 +1,4 @@
-﻿using Mailing.Services;
-using MailKit;
+﻿using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
 using MailKit.Security;
@@ -8,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
 using System.Security;
 using System.Threading.Tasks;
 using IMailService = Mailing.Services.IMailService;
@@ -122,7 +120,6 @@ namespace Outlook.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -151,7 +148,6 @@ namespace Outlook.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -161,7 +157,6 @@ namespace Outlook.Service
 
             return summaries;
         }
-
 
         public async Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync()
         {
@@ -187,7 +182,6 @@ namespace Outlook.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -208,7 +202,6 @@ namespace Outlook.Service
             }
             catch
             {
-
             }
             finally
             {

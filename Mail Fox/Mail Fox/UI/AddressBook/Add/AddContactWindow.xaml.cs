@@ -28,6 +28,5 @@ namespace MailFox.UI.AddressBook.Add
 
         private void Drag(object sender, MouseButtonEventArgs e) =>
             DragMove();
-
     }
 }

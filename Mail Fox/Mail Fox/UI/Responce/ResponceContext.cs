@@ -1,5 +1,4 @@
-﻿using Common.AppService.Manager;
-using Common.AppService.WindowService;
+﻿using Common.AppService.WindowService;
 using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Responce.Adapters;
@@ -23,7 +22,6 @@ namespace MailFox.UI.Responce
 
         private readonly ObservableCollection<ResponceAdapter> responces;
         public ObservableCollection<ResponceAdapter> Responces => responces;
-
 
         private readonly ICommand fillTemplate;
         private readonly ICommand removeTemplateCommand;

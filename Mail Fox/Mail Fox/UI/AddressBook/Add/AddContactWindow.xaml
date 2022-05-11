@@ -6,39 +6,39 @@
         Title="AddContactWindow" Uid="{Binding Guid, Mode=OneWay}" Style="{StaticResource ContactWindowStyle}" Height="360">
     <Grid x:Name="addContactGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MaxWidth="100" MinWidth="100" Width="100"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MaxWidth="100" MinWidth="100" Width="100" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="{Binding WindowTitle}" VerticalAlignment="Center" FontSize="28"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="{Binding WindowTitle}" VerticalAlignment="Center" FontSize="28" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}" Visibility="Hidden">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
-        <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Имя:" FontSize="24" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" Text="{Binding ContactName}"/>
-        <TextBlock TextWrapping="Wrap" Text="Адресс:" Grid.Row="2" FontSize="24" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" Text="{Binding EmailAddress}"/>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить" Margin="200,20,200,20" FontSize="24" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Имя:" FontSize="24" VerticalAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" Text="{Binding ContactName}" />
+        <TextBlock TextWrapping="Wrap" Text="Адресс:" Grid.Row="2" FontSize="24" VerticalAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" Text="{Binding EmailAddress}" />
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить" Margin="200,20,200,20" FontSize="24" Command="{Binding SaveCommand, Mode=OneWay}" />
     </Grid>
 </Window>

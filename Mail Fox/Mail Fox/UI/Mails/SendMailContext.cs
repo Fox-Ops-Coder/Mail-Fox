@@ -1,5 +1,4 @@
-﻿using Common.AppService.Manager;
-using Common.UICommand;
+﻿using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Mails.Adapters;
 using MailFox.UI.Mails.Attachment;
@@ -13,8 +12,6 @@ using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Text;
 using System.Windows.Input;
 
 namespace MailFox.UI.Mails
@@ -41,10 +38,12 @@ namespace MailFox.UI.Mails
         { get => selectedContact; set => selectedContact = value; }
 
         private string mailTheme;
+
         public string MailTheme
         { get => mailTheme; set => mailTheme = value; }
 
         private string mailText;
+
         public string MailText
         { get => mailText; set => mailText = value; }
 
@@ -104,8 +103,8 @@ namespace MailFox.UI.Mails
 
                     BodyBuilder builder = new();
                     builder.TextBody = mailText;
-                    
-                    foreach(AttachmentAdapter attachment in attachments)
+
+                    foreach (AttachmentAdapter attachment in attachments)
                         builder.Attachments.Add(attachment.Attachment);
 
                     message.Body = builder.ToMessageBody();

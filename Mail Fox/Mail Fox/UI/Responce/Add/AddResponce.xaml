@@ -6,33 +6,32 @@
         Title="AddResponce" Style="{StaticResource ContactWindowStyle}" Uid="{Binding Guid, Mode=OneWay}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="{Binding WindowTitle}"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="{Binding WindowTitle}" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}" Visibility="Hidden">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
-        <TextBox Grid.Row="1" Text="{Binding ResponceText}" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" TextWrapping="Wrap"/>
-        <Button Grid.Row="2" Content="Сохранить" Margin="250,10,250,10" FontSize="18" Command="{Binding SaveCommand, Mode=OneWay}"/>
-
+        <TextBox Grid.Row="1" Text="{Binding ResponceText}" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" TextWrapping="Wrap" />
+        <Button Grid.Row="2" Content="Сохранить" Margin="250,10,250,10" FontSize="18" Command="{Binding SaveCommand, Mode=OneWay}" />
     </Grid>
 </Window>

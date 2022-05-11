@@ -7,7 +7,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <ComboBox x:Name="servicesComboBox" SelectedIndex="0" SelectedItem="{Binding SelectedService}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding MailServices, Mode=OneWay}" FontSize="24" VerticalAlignment="Center" Margin="50,0,50,0" />

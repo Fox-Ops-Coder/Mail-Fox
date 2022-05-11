@@ -1,11 +1,9 @@
-﻿using Mailing.Services;
-using MailKit;
+﻿using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
 using MailKit.Security;
 using MimeKit;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -110,7 +108,6 @@ namespace MailRu.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -139,7 +136,6 @@ namespace MailRu.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -186,7 +182,6 @@ namespace MailRu.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -197,7 +192,7 @@ namespace MailRu.Service
             return message;
         }
 
-        public async Task DeleteMessageAsync(IMailFolder folder, 
+        public async Task DeleteMessageAsync(IMailFolder folder,
             IMessageSummary summary)
         {
             try
@@ -207,7 +202,6 @@ namespace MailRu.Service
             }
             catch
             {
-
             }
             finally
             {

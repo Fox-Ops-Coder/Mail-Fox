@@ -1,12 +1,7 @@
 ﻿using MailKit;
-using MimeKit;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -36,7 +31,8 @@ namespace MailFox.UI.MailBox.Adapters
         public ImageSource ReadedIcon => readedIcon;
 
         private readonly bool withAttachment;
-        public Visibility WithAttachment => 
+
+        public Visibility WithAttachment =>
             withAttachment ? Visibility.Visible : Visibility.Hidden;
 
         public string Summary =>

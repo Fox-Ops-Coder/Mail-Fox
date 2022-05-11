@@ -1,8 +1,6 @@
-﻿using Common.AppService.Manager;
-using Common.AppService.WindowService;
+﻿using Common.AppService.WindowService;
 using MailFox.UI.Context;
 using MailFox.UI.Login.Pages;
-using Ninject;
 using System.Windows.Navigation;
 
 namespace MailFox.UI.Login

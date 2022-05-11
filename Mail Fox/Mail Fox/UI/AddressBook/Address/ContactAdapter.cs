@@ -33,6 +33,5 @@ namespace MailFox.UI.AddressBook.Address
 
         private void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-
     }
 }

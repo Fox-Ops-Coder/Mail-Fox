@@ -6,94 +6,94 @@
         x:ClassModifier="internal"
         Title="Mail Fox" Style="{StaticResource WindowStyle}" Uid="{Binding Guid, Mode=OneTime}" WindowState="{Binding WindowState, Mode=OneWay}">
     <Window.DataContext>
-        <local:MailBoxContext/>
+        <local:MailBoxContext />
     </Window.DataContext>
     <Grid x:Name="mailBoxGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="appBarGrid" Style="{StaticResource AppBarStyle}" MouseLeftButtonDown="Drag">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Mail Fox" VerticalAlignment="Center" FontSize="28"/>
+            <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" Text="Mail Fox" VerticalAlignment="Center" FontSize="28" />
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}">
-                <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
+                <Image x:Name="hideIcon" Source="/Resources/hide.png" />
             </Button>
             <Button x:Name="fullscreenButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding FullscreenCommand, Mode=OneWay}">
-                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}"/>
+                <Image x:Name="fullscreenIcon" Source="{Binding FullScreenIcon, Mode=OneWay}" />
             </Button>
             <Button x:Name="closeWindowButton" Grid.Column="4" Style="{StaticResource AppBarButtons}" Command="{Binding CloseCommand, Mode=OneTime}">
-                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
+                <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png" />
             </Button>
         </Grid>
         <Grid x:Name="mailFoxBarGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
             <Button x:Name="loginButton" Style="{StaticResource AppBarButtons}" Command="{Binding LoginCommand, Mode=OneWay}">
-                <Image x:Name="loginIcon" Source="/Resources/login.png"/>
+                <Image x:Name="loginIcon" Source="/Resources/login.png" />
             </Button>
             <Button x:Name="writeMessageButton" Style="{StaticResource AppBarButtons}" Grid.Column="1" Command="{Binding WriteEmailCommand, Mode=OneWay}">
-                <Image x:Name="writeMessageIcon" Source="/Resources/write.png"/>
+                <Image x:Name="writeMessageIcon" Source="/Resources/write.png" />
             </Button>
             <Button x:Name="contactBookButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding OpenAddressBookCommand, Mode=OneWay}">
-                <Image x:Name="contactBookIcon" Source="/Resources/address book.png"/>
+                <Image x:Name="contactBookIcon" Source="/Resources/address book.png" />
             </Button>
             <Button x:Name="templateButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding OpenTemplates, Mode=OneWay}">
-                <Image x:Name="templateIcon" Source="/Resources/template.png"/>
+                <Image x:Name="templateIcon" Source="/Resources/template.png" />
             </Button>
             <ToggleButton x:Name="withAttachmentButton" Grid.Column="4" Style="{DynamicResource ToggleButtonsStyle}" IsChecked="{Binding WithAttachment}">
-                <Image x:Name="withAttachmentIcon" Source="/Resources/with attachment.png"/>
+                <Image x:Name="withAttachmentIcon" Source="/Resources/with attachment.png" />
             </ToggleButton>
-            <TextBox x:Name="searchText" Grid.Column="5" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" Margin="5,0,5,0" Background="#FFE8E4E4" Text="{Binding SearchText}"/>
+            <TextBox x:Name="searchText" Grid.Column="5" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" Margin="5,0,5,0" Background="#FFE8E4E4" Text="{Binding SearchText}" />
             <Button Grid.Column="6" Style="{DynamicResource AppBarButtons}" Command="{Binding SearchCommand, Mode=OneWay}">
-                <Image Style="{DynamicResource IconStyle}" Source="/Resources/search.png"/>
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/search.png" />
             </Button>
         </Grid>
         <Grid x:Name="mailFoxAppGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="250" Width="*"/>
-                <ColumnDefinition Width="5" MaxWidth="5" MinWidth="5"/>
-                <ColumnDefinition MinWidth="300" Width="10*"/>
+                <ColumnDefinition MinWidth="250" Width="*" />
+                <ColumnDefinition Width="5" MaxWidth="5" MinWidth="5" />
+                <ColumnDefinition MinWidth="300" Width="10*" />
             </Grid.ColumnDefinitions>
             <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" SelectedItem="{Binding SelectedService}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition/>
+                                <RowDefinition Height="60" />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="45"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="45"/>
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="45" />
                             </Grid.ColumnDefinitions>
                             <Button Style="{DynamicResource AppBarButtons}" Command="{Binding OpenFoldersCommand}">
-                                <Image Style="{DynamicResource IconStyle}" Source="{Binding FolderImage}" Margin="4,4,4,4"/>
+                                <Image Style="{DynamicResource IconStyle}" Source="{Binding FolderImage}" Margin="4,4,4,4" />
                             </Button>
-                            <TextBlock Text="{Binding Path=MailService.Email}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="10,15,60,15"/>
+                            <TextBlock Text="{Binding Path=MailService.Email}" Grid.Column="1" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="10,15,60,15" />
                             <Button Grid.Column="2" Command="{Binding LogoutCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" Style="{DynamicResource AppBarButtons}" Margin="5,5,5,5">
-                                <Image Source="/Resources/logout.png" Style="{DynamicResource IconStyle}" Margin="0,0,0,0"/>
+                                <Image Source="/Resources/logout.png" Style="{DynamicResource IconStyle}" Margin="0,0,0,0" />
                             </Button>
                             <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Folders}" Visibility="{Binding FoldersVisible}" SelectedItem="{Binding SelectedFolder}" HorizontalContentAlignment="Stretch">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding FolderName}"/>
+                                        <TextBlock Text="{Binding FolderName}" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -101,26 +101,26 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <GridSplitter x:Name="splitter" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter x:Name="splitter" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
             <ListBox x:Name="messages" Grid.Column="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Messages, Mode=OneWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="60" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock VerticalAlignment="Center" FontSize="24" Text="{Binding Summary}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                            <TextBlock VerticalAlignment="Center" FontSize="24" Text="{Binding Summary}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                             <Button Style="{DynamicResource AppBarButtons}" Grid.Column="1" Visibility="{Binding WithAttachment}">
-                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/with attachment.png"/>
+                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/with attachment.png" />
                             </Button>
                             <Button Style="{DynamicResource AppBarButtons}" Grid.Column="2" Command="{Binding OpenMessageCommand}" CommandParameter="{Binding}">
-                                <Image Style="{DynamicResource IconStyle}" Source="{Binding ReadedIcon}"/>
+                                <Image Style="{DynamicResource IconStyle}" Source="{Binding ReadedIcon}" />
                             </Button>
                             <Button Style="{DynamicResource AppBarButtons}" Grid.Column="3" Command="{Binding DeleteCommand}" CommandParameter="{Binding}">
-                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/delete.png"/>
+                                <Image Style="{DynamicResource IconStyle}" Source="/Resources/delete.png" />
                             </Button>
                         </Grid>
                     </DataTemplate>

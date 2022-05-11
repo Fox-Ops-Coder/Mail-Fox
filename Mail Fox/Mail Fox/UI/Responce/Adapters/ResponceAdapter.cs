@@ -1,13 +1,6 @@
-﻿using MFData.Core;
-using MFData.Entities;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using MFData.Entities;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -50,6 +43,5 @@ namespace MailFox.UI.Responce.Adapters
 
         protected void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-
     }
 }

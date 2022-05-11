@@ -1,7 +1,5 @@
-﻿using Mailing.Services;
-using MailKit;
+﻿using MailKit;
 using MailKit.Net.Imap;
-using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
 using MailKit.Search;
 using MailKit.Security;
@@ -122,7 +120,6 @@ namespace Google.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -151,7 +148,6 @@ namespace Google.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -161,7 +157,6 @@ namespace Google.Service
 
             return summaries;
         }
-
 
         public async Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync()
         {
@@ -187,7 +182,6 @@ namespace Google.Service
             }
             catch
             {
-
             }
             finally
             {
@@ -208,7 +202,6 @@ namespace Google.Service
             }
             catch
             {
-
             }
             finally
             {
