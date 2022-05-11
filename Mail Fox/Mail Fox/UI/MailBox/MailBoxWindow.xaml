@@ -116,7 +116,7 @@
                             <Button Style="{DynamicResource AppBarButtons}" Grid.Column="1" Visibility="{Binding WithAttachment}">
                                 <Image Style="{DynamicResource IconStyle}" Source="/Resources/with attachment.png"/>
                             </Button>
-                            <Button Style="{DynamicResource AppBarButtons}" Grid.Column="2">
+                            <Button Style="{DynamicResource AppBarButtons}" Grid.Column="2" Command="{Binding OpenMessageCommand}" CommandParameter="{Binding}">
                                 <Image Style="{DynamicResource IconStyle}" Source="{Binding ReadedIcon}"/>
                             </Button>
                             <Button Style="{DynamicResource AppBarButtons}" Grid.Column="3">

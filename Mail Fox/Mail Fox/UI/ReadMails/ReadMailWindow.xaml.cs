@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MimeKit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace MailFox.UI.ReadMails
     /// </summary>
     public partial class ReadMailWindow : Window
     {
-        public ReadMailWindow()
+        public ReadMailWindow(MimeMessage message)
         {
             InitializeComponent();
+
+            DataContext = new ReadMailContext(message);
         }
 
         private void Drag(object sender, MouseButtonEventArgs e) =>

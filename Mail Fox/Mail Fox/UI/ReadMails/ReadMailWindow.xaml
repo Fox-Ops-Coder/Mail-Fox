@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailFox.UI.ReadMails"
         mc:Ignorable="d"
-        Title="ReadMailWindow" Height="450" Width="800">
+        Title="ReadMailWindow" Height="450" Width="800" Uid="{Binding Guid, Mode=OneTime}" Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -42,20 +42,26 @@
         <Grid Grid.Row="1" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{DynamicResource AppBarButtons}">
-                <Image Source="/Resources/send.png"/>
-            </Button>
             <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}">
                 <Image Source="/Resources/attachment.png"/>
             </Button>
         </Grid>
-        <TextBlock Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap" FontSize="18" Text="{Binding MailText}"/>
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap" FontSize="18" Text="{Binding MailText}" Margin="0,10,0,0"/>
         <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Text="От:"/>
         <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Кому:" FontSize="20" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="4" TextWrapping="Wrap" FontSize="20" Text="Тема:" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding From}"/>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding From}"/>
+            <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Visibility="{Binding AddCommandVisibility}" Command="{Binding AddContactCommand}">
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/add contact.png"/>
+            </Button>
+        </Grid>
         <TextBlock Grid.Column="1" Grid.Row="3" FontSize="20" VerticalAlignment="Center" Margin="10,0,10,0" Text="{Binding To}"/>
         <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Text="{Binding MailTheme}"/>
 

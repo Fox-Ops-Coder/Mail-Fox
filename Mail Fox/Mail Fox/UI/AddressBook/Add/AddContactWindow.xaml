@@ -4,9 +4,6 @@
         xmlns:local="clr-namespace:MailFox.UI.AddressBook.Add" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Name="addContactWindow" x:Class="MailFox.UI.AddressBook.Add.AddContactWindow"
         x:ClassModifier="internal"
         Title="AddContactWindow" Uid="{Binding Guid, Mode=OneWay}" Style="{StaticResource ContactWindowStyle}" Height="360">
-    <Window.DataContext>
-        <local:AddContactContext/>
-    </Window.DataContext>
     <Grid x:Name="addContactGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MaxWidth="100" MinWidth="100" Width="100"/>

@@ -30,6 +30,7 @@ namespace MailFox.UI.MailBox.Adapters
         public ObservableCollection<MailFolderAdapter> Folders => folders;
 
         private readonly ObservableCollection<MessageAdapter> messagesCollection;
+        private readonly ICommand openMessageCommand;
 
         private MailFolderAdapter selectedFolder;
         public MailFolderAdapter SelectedFolder
@@ -55,7 +56,7 @@ namespace MailFox.UI.MailBox.Adapters
             if (messages != null)
             {
                 foreach(IMessageSummary summary in messages)
-                    messagesCollection.Add(new(summary));
+                    messagesCollection.Add(new(summary, mailService, selectedFolder.Folder, openMessageCommand));
             }
         }
 
@@ -69,10 +70,11 @@ namespace MailFox.UI.MailBox.Adapters
                     folders.Add(new(f));
         }
 
-        public MailServiceAdapter(IMailService mailService, ICommand logoutCommand,
-            ObservableCollection<MessageAdapter> messagesCollection)
+        public MailServiceAdapter(IMailService mailService, ICommand openMessageCommand,
+            ICommand logoutCommand, ObservableCollection<MessageAdapter> messagesCollection)
         {
             this.messagesCollection = messagesCollection;
+            this.openMessageCommand = openMessageCommand;
             this.mailService = mailService;
             this.logoutCommand = logoutCommand;
 

@@ -11,6 +11,18 @@ namespace MailFox.UI.AddressBook.Add
         public AddContactWindow()
         {
             InitializeComponent();
+
+            DataContext = new AddContactContext();
+        }
+
+        public AddContactWindow(string email)
+        {
+            InitializeComponent();
+
+            AddContactContext context = new();
+            context.EmailAddress = email;
+
+            DataContext = context;
         }
 
         private void Drag(object sender, MouseButtonEventArgs e) =>

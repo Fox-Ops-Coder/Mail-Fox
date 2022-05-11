@@ -5,12 +5,14 @@ using MailFox.UI.Context;
 using MailFox.UI.Login;
 using MailFox.UI.MailBox.Adapters;
 using MailFox.UI.Mails;
+using MailFox.UI.ReadMails;
 using MailFox.UI.Responce;
 using Mailing.ServiceManager;
 using Mailing.Services;
 using MailKit;
 using MFData.Core;
 using MFData.Entities;
+using MimeKit;
 using Ninject;
 using Security.Service;
 using System;
@@ -120,10 +122,24 @@ namespace MailFox.UI.MailBox
                 }
             });
 
+            ICommand openCommand = new Command(async obj =>
+            {
+                if (obj is MessageAdapter messageAdapter)
+                {
+                    IMailFolder folder = messageAdapter.Folder;
+                    IMailService service = messageAdapter.Service;
+
+                    MimeMessage? message = await service.GetMessageAsync(folder, messageAdapter.Message);
+
+                    if (message != null)
+                        windowManager.ShowWindow(new ReadMailWindow(message));
+                }
+            });
+
             messages = new();
             mailServices = new();
             mailServiceManager.OnAdd += new IMailServiceManager
-                .MailServiceHandler(service => mailServices.Add(new(service, logoutCommand, messages)));
+                .MailServiceHandler(service => mailServices.Add(new(service, openCommand, logoutCommand, messages)));
 
             writeEmailCommand = new Command(obj =>
             windowManager.ShowWindow(new SendMailWindow()));

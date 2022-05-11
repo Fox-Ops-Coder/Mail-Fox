@@ -104,7 +104,7 @@ namespace MailRu.Service
                     ids.Add(i);
 
                 summaries = await folder.FetchAsync(ids, MessageSummaryItems.BodyStructure |
-                    MessageSummaryItems.Envelope | MessageSummaryItems.Flags);
+                    MessageSummaryItems.Envelope | MessageSummaryItems.Flags | MessageSummaryItems.UniqueId);
             }
             catch
             {
@@ -139,6 +139,31 @@ namespace MailRu.Service
             {
                 return err.Message;
             }
+        }
+
+        public async Task<MimeMessage?> GetMessageAsync(IMailFolder folder,
+            IMessageSummary summary)
+        {
+            MimeMessage? message = null;
+
+            try
+            {
+                await folder.OpenAsync(FolderAccess.ReadWrite);
+                message = await folder.GetMessageAsync(summary.UniqueId);
+
+                await folder.SetFlagsAsync(summary.UniqueId, MessageFlags.Seen, true);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (folder.IsOpen)
+                    await folder.CloseAsync();
+            }
+
+            return message;
         }
     }
 }

@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using IMailService = Mailing.Services.IMailService;
 
 namespace MailFox.UI.MailBox.Adapters
 {
@@ -15,6 +17,15 @@ namespace MailFox.UI.MailBox.Adapters
     {
         private readonly IMessageSummary message;
         public IMessageSummary Message => message;
+
+        private readonly IMailFolder folder;
+        public IMailFolder Folder => folder;
+
+        private readonly IMailService service;
+        public IMailService Service => service;
+
+        private readonly ICommand openMessageCommand;
+        public ICommand OpenMessageCommand => openMessageCommand;
 
         private BitmapImage readedIcon;
         public ImageSource ReadedIcon => readedIcon;
@@ -27,9 +38,13 @@ namespace MailFox.UI.MailBox.Adapters
             message.Envelope.Sender.ToString() +
             " " + message.Envelope.Subject;
 
-        public MessageAdapter(IMessageSummary message)
+        public MessageAdapter(IMessageSummary message, IMailService service,
+            IMailFolder folder, ICommand openMessageCommand)
         {
             this.message = message;
+            this.folder = folder;
+            this.service = service;
+            this.openMessageCommand = openMessageCommand;
 
             if (message.Flags.HasValue && message.Flags.Value == MessageFlags.Seen)
                 readedIcon = new(new("pack://application:,,,/Resources/readed.png"));
