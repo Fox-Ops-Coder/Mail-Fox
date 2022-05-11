@@ -165,5 +165,24 @@ namespace MailRu.Service
 
             return message;
         }
+
+        public async Task DeleteMessageAsync(IMailFolder folder, 
+            IMessageSummary summary)
+        {
+            try
+            {
+                await folder.OpenAsync(FolderAccess.ReadWrite);
+                await folder.SetFlagsAsync(summary.UniqueId, MessageFlags.Deleted, true);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (folder.IsOpen)
+                    await folder.CloseAsync();
+            }
+        }
     }
 }

@@ -32,5 +32,8 @@ namespace Mailing.Services
 
         Task<MimeMessage?> GetMessageAsync(IMailFolder folder,
             IMessageSummary summary);
+
+        Task DeleteMessageAsync(IMailFolder folder,
+            IMessageSummary summary);
     }
 }

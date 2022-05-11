@@ -23,6 +23,9 @@ namespace MailFox.UI.MailBox.Adapters
         private readonly ICommand openFolders;
         public ICommand OpenFoldersCommand => openFolders;
 
+        private readonly ICommand deleteCommand;
+        public ICommand DeleteCommand => deleteCommand;
+
         private BitmapImage folderImage;
         public ImageSource FolderImage => folderImage;
 
@@ -56,7 +59,9 @@ namespace MailFox.UI.MailBox.Adapters
             if (messages != null)
             {
                 foreach(IMessageSummary summary in messages)
-                    messagesCollection.Add(new(summary, mailService, selectedFolder.Folder, openMessageCommand));
+                    messagesCollection.Add(new(summary,
+                        mailService, selectedFolder.Folder,
+                        openMessageCommand, deleteCommand));
             }
         }
 
@@ -71,12 +76,13 @@ namespace MailFox.UI.MailBox.Adapters
         }
 
         public MailServiceAdapter(IMailService mailService, ICommand openMessageCommand,
-            ICommand logoutCommand, ObservableCollection<MessageAdapter> messagesCollection)
+            ICommand logoutCommand, ICommand deleteCommand, ObservableCollection<MessageAdapter> messagesCollection)
         {
             this.messagesCollection = messagesCollection;
             this.openMessageCommand = openMessageCommand;
             this.mailService = mailService;
             this.logoutCommand = logoutCommand;
+            this.deleteCommand = deleteCommand;
 
             folders = new();
 
@@ -96,7 +102,7 @@ namespace MailFox.UI.MailBox.Adapters
                 OnPropertyChanged("FoldersVisible");
                 OnPropertyChanged("FolderImage");
             });
-
+            
             GetFolders();
         }
 

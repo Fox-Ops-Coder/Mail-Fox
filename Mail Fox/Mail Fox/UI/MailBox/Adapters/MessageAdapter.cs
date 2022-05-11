@@ -29,6 +29,9 @@ namespace MailFox.UI.MailBox.Adapters
         private readonly ICommand openMessageCommand;
         public ICommand OpenMessageCommand => openMessageCommand;
 
+        private readonly ICommand deleteCommand;
+        public ICommand DeleteCommand => deleteCommand;
+
         private BitmapImage readedIcon;
         public ImageSource ReadedIcon => readedIcon;
 
@@ -47,12 +50,13 @@ namespace MailFox.UI.MailBox.Adapters
         }
 
         public MessageAdapter(IMessageSummary message, IMailService service,
-            IMailFolder folder, ICommand openMessageCommand)
+            IMailFolder folder, ICommand openMessageCommand, ICommand deleteCommand)
         {
             this.message = message;
             this.folder = folder;
             this.service = service;
             this.openMessageCommand = openMessageCommand;
+            this.deleteCommand = deleteCommand;
 
             if (message.Flags.HasValue && message.Flags.Value == MessageFlags.Seen)
                 readedIcon = new(new("pack://application:,,,/Resources/readed.png"));

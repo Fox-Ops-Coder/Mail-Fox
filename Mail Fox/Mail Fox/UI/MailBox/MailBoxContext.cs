@@ -122,6 +122,9 @@ namespace MailFox.UI.MailBox
                 }
             });
 
+            messages = new();
+            mailServices = new();
+
             ICommand openCommand = new Command(async obj =>
             {
                 if (obj is MessageAdapter messageAdapter)
@@ -139,10 +142,20 @@ namespace MailFox.UI.MailBox
                 }
             });
 
-            messages = new();
-            mailServices = new();
+            ICommand deleteCommand = new Command(async obj =>
+            {
+                if (obj is MessageAdapter message)
+                {
+                    IMailFolder folder = message.Folder;
+                    await message.Service.DeleteMessageAsync(folder, message.Message);
+
+                    messages.Remove(message);
+                }
+            });
+
             mailServiceManager.OnAdd += new IMailServiceManager
-                .MailServiceHandler(service => mailServices.Add(new(service, openCommand, logoutCommand, messages)));
+                .MailServiceHandler(service => mailServices.Add(new(service, openCommand,
+                logoutCommand, deleteCommand, messages)));
 
             writeEmailCommand = new Command(obj =>
             windowManager.ShowWindow(new SendMailWindow()));
