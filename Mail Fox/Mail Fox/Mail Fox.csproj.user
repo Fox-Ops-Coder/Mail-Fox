@@ -8,6 +8,9 @@
     <Compile Update="UI\AddressBook\Add\AddContactWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Dialog\DialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Login\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +50,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\AddressBook\Add\AddContactWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Dialog\DialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Login\LoginWindow.xaml">

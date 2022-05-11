@@ -1,10 +1,10 @@
 ﻿using Common.AppService.Manager;
-using Common.UI;
 using Common.UICommand;
 using MailFox.Kernel;
 using MailFox.UI.AddressBook.Add;
 using MailFox.UI.AddressBook.Address;
 using MailFox.UI.Context;
+using MailFox.UI.Dialog;
 using MFData.Core;
 using MFData.Entities;
 using Ninject;
@@ -53,7 +53,7 @@ namespace MailFox.UI.AddressBook
             {
                 if (obj is ContactAdapter contact && contact != null)
                 {
-                    bool? accepted = windowManager.ShowDialog(new DialogWindow("Вы точно хотите удалить этот контакт?", windowManager));
+                    bool? accepted = windowManager.ShowDialog(new DialogWindow());
 
                     if (accepted != null && (bool)accepted)
                     {

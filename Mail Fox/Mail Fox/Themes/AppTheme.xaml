@@ -68,4 +68,21 @@
 
         <Setter Property="ShowInTaskbar" Value="False"/>
     </Style>
+
+    <Style x:Key="DialogWindowStyle" TargetType="Window">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ShowInTaskbar" Value="False"/>
+
+        <Setter Property="Icon" Value="/Resources/fox.png"/>
+
+        <Setter Property="MinWidth" Value="480"/>
+        <Setter Property="MaxWidth" Value="640"/>
+
+        <Setter Property="MinHeight" Value="360"/>
+        <Setter Property="MaxHeight" Value="480"/>
+
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
 </ResourceDictionary>
