@@ -4,9 +4,6 @@
         xmlns:local="clr-namespace:MailFox.UI.Responce.Add"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="av" x:Class="MailFox.UI.Responce.Add.AddResponce"
         Title="AddResponce" Style="{StaticResource ContactWindowStyle}" Uid="{Binding Guid, Mode=OneWay}">
-    <Window.DataContext>
-        <local:AddResponceContext/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -23,7 +20,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="appIcon" Source="/Resources/fox.png" Style="{StaticResource IconStyle}"/>
-            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="Новый шаблон"/>
+            <TextBlock x:Name="windowTitle" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="28" Text="{Binding WindowTitle}"/>
             <Button x:Name="hideButton" Grid.Column="2" Style="{StaticResource AppBarButtons}" Command="{Binding HideCommand, Mode=OneTime}" Visibility="Hidden">
                 <Image x:Name="hideIcon" Source="/Resources/hide.png"/>
             </Button>

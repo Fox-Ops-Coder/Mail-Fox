@@ -17,6 +17,9 @@ namespace MailFox.UI.Responce.Add
         private readonly ICommand saveCommand;
         public ICommand SaveCommand => saveCommand;
 
+        private readonly string windowTitle;
+        public string WindowTitle => windowTitle;
+
         private string responceText;
 
         public string ResponceText
@@ -25,11 +28,35 @@ namespace MailFox.UI.Responce.Add
             set => responceText = value;
         }
 
-        public AddResponceContext()
+        private async Task Operation(bool isCreate, Blank? blank)
         {
-            responceText = string.Empty;
+            if (blank != null)
+            {
+                IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
 
-            IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
+                switch (isCreate)
+                {
+                    case true:
+                        Blank newBlank = new() { BlankText = responceText };
+                        await mailFoxDatabase.AddBlankAsync(newBlank);
+                        break;
+
+                    case false:
+                        blank.BlankText = responceText;
+                        await mailFoxDatabase.UpdateBlankAsync(blank);
+                        break;
+                }
+            }
+        }
+
+        public AddResponceContext(bool isCreate, Blank? blank)
+        {
+            if (isCreate)
+                windowTitle = "Новый шаблон";
+            else
+                windowTitle = "Изменить шаблон";
+
+            responceText = blank == null ? string.Empty : blank.BlankText;
 
             saveCommand = new Command(async obj =>
             {
@@ -40,10 +67,9 @@ namespace MailFox.UI.Responce.Add
                         break;
 
                     case false:
-                        Blank newBlank = new() { BlankText = responceText };
-                        await mailFoxDatabase.AddBlankAsync(newBlank);
-                        windowManager.ShowMessage(this, "Заготовка сообщения сохранена");
-                        windowManager.CloseWindow(this);
+                        await Operation(isCreate, blank);
+                        windowManager.ShowMessage(this, "Шаблон сообщения сохранён");
+                        windowManager.CloseWindow(this, true);
                         break;
                 }
             });

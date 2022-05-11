@@ -56,7 +56,14 @@ namespace MailFox.UI.Responce
                 }
             });
 
-            editTemplateCommand = new Command(obj => { });
+            editTemplateCommand = new Command(obj =>
+            {
+                if (obj is ResponceAdapter responce)
+                {
+                    windowManager.ShowDialog(new AddResponce(false, responce.Responce));
+                    responce.TextChanged();
+                }
+            });
 
             removeTemplateCommand = new Command(async obj =>
             {

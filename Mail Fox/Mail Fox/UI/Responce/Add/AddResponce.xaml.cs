@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MFData.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace MailFox.UI.Responce.Add
     /// </summary>
     public partial class AddResponce : Window
     {
-        public AddResponce()
+        public AddResponce(bool isCreate = true, Blank? blank = null)
         {
             InitializeComponent();
+
+            DataContext = new AddResponceContext(isCreate, blank);
         }
 
         private void Drag(object sender, MouseButtonEventArgs e) =>
