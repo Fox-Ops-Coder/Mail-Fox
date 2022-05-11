@@ -41,8 +41,8 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="loginButton" Style="{StaticResource AppBarButtons}" Command="{Binding LoginCommand, Mode=OneWay}">
                 <Image x:Name="loginIcon" Source="/Resources/login.png"/>
@@ -56,13 +56,13 @@
             <Button x:Name="templateButton" Grid.Column="3" Style="{StaticResource AppBarButtons}" Command="{Binding OpenTemplates, Mode=OneWay}">
                 <Image x:Name="templateIcon" Source="/Resources/template.png"/>
             </Button>
-            <Button x:Name="searchButton" Style="{StaticResource AppBarButtons}" Grid.Column="4">
-                <Image x:Name="searchIcon" Source="/Resources/search.png"/>
-            </Button>
-            <Button x:Name="withAttachmentButton" Style="{StaticResource AppBarButtons}" Grid.Column="5">
+            <ToggleButton x:Name="withAttachmentButton" Grid.Column="4" Style="{DynamicResource ToggleButtonsStyle}" IsChecked="{Binding WithAttachment}">
                 <Image x:Name="withAttachmentIcon" Source="/Resources/with attachment.png"/>
+            </ToggleButton>
+            <TextBox x:Name="searchText" Grid.Column="5" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" Margin="5,0,5,0" Background="#FFE8E4E4" Text="{Binding SearchText}"/>
+            <Button Grid.Column="6" Style="{DynamicResource AppBarButtons}" Command="{Binding SearchCommand, Mode=OneWay}">
+                <Image Style="{DynamicResource IconStyle}" Source="/Resources/search.png"/>
             </Button>
-            <TextBox x:Name="searchText" Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" Margin="5,0,5,0" Background="#FFE8E4E4"/>
         </Grid>
         <Grid x:Name="mailFoxAppGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -70,7 +70,7 @@
                 <ColumnDefinition Width="5" MaxWidth="5" MinWidth="5"/>
                 <ColumnDefinition MinWidth="300" Width="10*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <ListView x:Name="emails" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0" ItemsSource="{Binding MailServices, Mode=OneWay}" SelectedItem="{Binding SelectedService}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>

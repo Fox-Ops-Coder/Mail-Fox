@@ -3,10 +3,12 @@ using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
+using MailKit.Search;
 using MailKit.Security;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Security;
 using System.Threading.Tasks;
@@ -130,6 +132,36 @@ namespace Google.Service
 
             return summaries;
         }
+
+        public async Task<IEnumerable<IMessageSummary>?> GetMessagesAsync(IMailFolder folder, bool attachments, string text)
+        {
+            IEnumerable<IMessageSummary>? summaries = null;
+
+            try
+            {
+                await folder.OpenAsync(FolderAccess.ReadOnly);
+
+                IList<UniqueId> ids = await folder.SearchAsync(SearchQuery
+                    .Or(SearchQuery.MessageContains(text), SearchQuery.Or(SearchQuery.FromContains(text), SearchQuery.ToContains(text))));
+                summaries = (await folder.FetchAsync(ids, MessageSummaryItems.BodyStructure |
+                    MessageSummaryItems.Envelope | MessageSummaryItems.Flags | MessageSummaryItems.UniqueId));
+
+                if (attachments)
+                    summaries = summaries.Where(summari => summari.Attachments.Any());
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (folder.IsOpen)
+                    await folder.CloseAsync();
+            }
+
+            return summaries;
+        }
+
 
         public async Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync()
         {

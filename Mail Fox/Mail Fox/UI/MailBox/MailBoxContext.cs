@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -43,14 +44,72 @@ namespace MailFox.UI.MailBox
         private readonly ICommand openAddressBookCommand;
         public ICommand OpenAddressBookCommand => openAddressBookCommand;
 
+        private readonly ICommand openCommand;
+        public ICommand OpenCommand => openCommand;
+
+        private readonly ICommand deleteCommand;
+        public ICommand DeleteCommand => deleteCommand;
+
         private readonly ICommand openTemplates;
         public ICommand OpenTemplates => openTemplates;
+
+        private readonly ICommand searchCommand;
+        public ICommand SearchCommand => searchCommand;
 
         private readonly ObservableCollection<MailServiceAdapter> mailServices;
         public ObservableCollection<MailServiceAdapter> MailServices => mailServices;
 
+        private MailServiceAdapter? selectedService;
+        public MailServiceAdapter? SelectedService
+        {
+            get => selectedService;
+            set
+            {
+                selectedService = value;
+                Search();
+            }
+        }
+
         private readonly ObservableCollection<MessageAdapter> messages;
         public ObservableCollection<MessageAdapter> Messages => messages;
+
+        private string searchText;
+        public string SearchText
+        {
+            get => searchText;
+            set
+            {
+                searchText = value;
+            }
+        }
+
+        private bool withAttachment;
+        public bool WithAttachment
+        {
+            get => withAttachment;
+            set
+            {
+                withAttachment = value;
+            }
+        }
+
+        private async Task Search()
+        {
+            if (!string.IsNullOrEmpty(searchText) && selectedService != null)
+            {
+                messages.Clear();
+
+                IEnumerable<IMessageSummary>? summaries = await selectedService
+                    .MailService.GetMessagesAsync(selectedService.SelectedFolder.Folder, withAttachment, searchText);
+
+                if (summaries != null)
+                {
+                    foreach (var summary in summaries)
+                        messages.Add(new(summary, selectedService.MailService, 
+                            selectedService.SelectedFolder.Folder, openCommand, deleteCommand));
+                }
+            }
+        }
 
         private async void LogIn()
         {
@@ -76,6 +135,8 @@ namespace MailFox.UI.MailBox
 
         public MailBoxContext()
         {
+            searchText = string.Empty;
+
             ISecurityService securityService = kernel.Get<ISecurityService>();
             IMFCore mailFoxDatabase = kernel.Get<IMFCore>();
             IMailServiceManager serviceManager = kernel.Get<IMailServiceManager>();
@@ -125,7 +186,7 @@ namespace MailFox.UI.MailBox
             messages = new();
             mailServices = new();
 
-            ICommand openCommand = new Command(async obj =>
+            openCommand = new Command(async obj =>
             {
                 if (obj is MessageAdapter messageAdapter)
                 {
@@ -142,7 +203,7 @@ namespace MailFox.UI.MailBox
                 }
             });
 
-            ICommand deleteCommand = new Command(async obj =>
+            deleteCommand = new Command(async obj =>
             {
                 if (obj is MessageAdapter message)
                 {
@@ -152,6 +213,9 @@ namespace MailFox.UI.MailBox
                     messages.Remove(message);
                 }
             });
+
+            searchCommand = new Command(async obj =>
+            await Search());
 
             mailServiceManager.OnAdd += new IMailServiceManager
                 .MailServiceHandler(service => mailServices.Add(new(service, openCommand,

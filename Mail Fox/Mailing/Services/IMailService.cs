@@ -28,6 +28,8 @@ namespace Mailing.Services
 
         Task<IEnumerable<IMessageSummary>?> GetMessagesAsync(IMailFolder folder);
 
+        Task<IEnumerable<IMessageSummary>?> GetMessagesAsync(IMailFolder folder, bool attachments, string text);
+
         Task<IEnumerable<IEnumerable<IMailFolder>>> GetFoldersAsync();
 
         Task<MimeMessage?> GetMessageAsync(IMailFolder folder,

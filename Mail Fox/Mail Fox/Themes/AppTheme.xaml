@@ -51,6 +51,13 @@
         <Setter Property="Background" Value="{x:Null}"/>
     </Style>
 
+    <Style x:Key="ToggleButtonsStyle" TargetType="ToggleButton">
+        <Setter Property="Margin" Value="5"/>
+
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+    </Style>
+
     <Style x:Key="IconStyle" TargetType="Image">
         <Setter Property="Margin" Value="5"/>
     </Style>
