@@ -106,9 +106,14 @@ namespace MailRu.Service
                 summaries = await folder.FetchAsync(ids, MessageSummaryItems.BodyStructure |
                     MessageSummaryItems.Envelope | MessageSummaryItems.Flags);
             }
+            catch
+            {
+
+            }
             finally
             {
-                await folder.CloseAsync();
+                if (folder.IsOpen)
+                    await folder.CloseAsync();
             }
 
             return summaries;
