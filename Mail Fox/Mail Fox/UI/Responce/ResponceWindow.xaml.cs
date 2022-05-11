@@ -8,9 +8,11 @@ namespace MailFox.UI.Responce
     /// </summary>
     internal sealed partial class ResponceWindow : Window
     {
-        public ResponceWindow()
+        public ResponceWindow(bool fill = false)
         {
             InitializeComponent();
+
+            DataContext = new ResponceContext(fill);
         }
 
         private void Drag(object sender, MouseButtonEventArgs e) =>

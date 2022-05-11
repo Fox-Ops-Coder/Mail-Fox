@@ -5,9 +5,6 @@
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Name="responceWindow" x:Class="MailFox.UI.Responce.ResponceWindow"
         x:ClassModifier="internal"
         Title="ResponceWindow" Uid="{Binding Guid, Mode=OneWay}" WindowState="{Binding WindowState, Mode=OneWay}" Style="{StaticResource WindowStyle}">
-    <Window.DataContext>
-        <local:ResponceContext />
-    </Window.DataContext>
     <Grid x:Name="responceGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -34,7 +31,30 @@
                 <Image x:Name="closeWindowIcon" Source="/Resources/close-window.png"/>
             </Button>
         </Grid>
-        <ListView Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" SelectedIndex="0"/>
+        <ListView Grid.Row="2" av:ItemsSource="{av:SampleData ItemCount=5}" ItemsSource="{Binding Responces}" SelectedIndex="0" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Text}" VerticalAlignment="Center" FontSize="22"/>
+                        <Button Grid.Column="1" Style="{DynamicResource AppBarButtons}" Command="{Binding FillCommand}" CommandParameter="{Binding}" Visibility="{Binding FillVisibility}">
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/fill.png"/>
+                        </Button>
+                        <Button Grid.Column="2" Style="{DynamicResource AppBarButtons}" Command="{Binding EditCommand}" CommandParameter="{Binding}">
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/edit.png"/>
+                        </Button>
+                        <Button Grid.Column="3" Style="{DynamicResource AppBarButtons}" Command="{Binding DeleteCommand}" CommandParameter="{Binding}">
+                            <Image Style="{DynamicResource IconStyle}" Source="/Resources/adelete.png"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Button Grid.Row="1" HorizontalAlignment="Left" Style="{DynamicResource AppBarButtons}" Command="{Binding AddTemplateCommand, Mode=OneWay}">
             <Grid>
                 <Grid.ColumnDefinitions>

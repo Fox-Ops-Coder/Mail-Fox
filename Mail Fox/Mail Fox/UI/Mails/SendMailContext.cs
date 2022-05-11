@@ -3,12 +3,14 @@ using Common.UICommand;
 using MailFox.UI.Context;
 using MailFox.UI.Mails.Adapters;
 using MailFox.UI.Mails.Attachment;
+using MailFox.UI.Responce;
 using Mailing.ServiceManager;
 using Mailing.Services;
 using MFData.Core;
 using MFData.Entities;
 using MimeKit;
 using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -24,6 +26,9 @@ namespace MailFox.UI.Mails
 
         private readonly ObservableCollection<ContactAdapter> contacts;
         public ObservableCollection<ContactAdapter> Contacts => contacts;
+
+        private readonly ICommand openTemplates;
+        public ICommand OpenTemplates => openTemplates;
 
         private MailServiceAdapter? selectedMailService;
 
@@ -114,6 +119,21 @@ namespace MailFox.UI.Mails
 
             attachmentCommand = new Command(obj =>
             windowManager.ShowDialog(new AttachmentWindow(attachments)));
+
+            openTemplates = new Command(obj =>
+            {
+                Tuple<bool?, object?> result = windowManager
+                .ShowDialogWithResult(new ResponceWindow(true));
+
+                if (result.Item1.HasValue && result.Item1.Value)
+                {
+                    if (result.Item2 is Blank blank)
+                    {
+                        mailText = blank.BlankText;
+                        OnPropertyChanged("MailText");
+                    }
+                }
+            });
         }
     }
 }

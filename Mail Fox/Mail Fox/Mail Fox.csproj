@@ -18,6 +18,8 @@
     <None Remove="Resources\delete.png" />
     <None Remove="Resources\dowload.png" />
     <None Remove="Resources\edit contact.png" />
+    <None Remove="Resources\edit.png" />
+    <None Remove="Resources\fill.png" />
     <None Remove="Resources\fox.png" />
     <None Remove="Resources\hide.png" />
     <None Remove="Resources\login.png" />
@@ -71,6 +73,8 @@
     <Resource Include="Resources\edit contact.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\edit.png" />
+    <Resource Include="Resources\fill.png" />
     <Resource Include="Resources\fox.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
